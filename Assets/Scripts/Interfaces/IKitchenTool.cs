@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IKitchenTool
 {
-    bool ReceiveItem(Item item);
+    bool ReceiveItem(Item.Item item);
 }

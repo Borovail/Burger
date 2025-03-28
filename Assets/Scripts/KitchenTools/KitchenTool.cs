@@ -8,15 +8,19 @@ namespace KitchenTools
     public abstract class KitchenTool : MonoBehaviour, IKitchenTool
     {
         [SerializeField] private float cookDuration = 5f;
+        [SerializeField] private Transform ingridientPlace;
         [SerializeField] private UITimer timer;
-        [SerializeField] private List<Item> acceptedItems;
-        public abstract bool ReceiveItem(Item item);
+        [SerializeField] private List<ItemSO> acceptedItems;
+        public abstract bool ReceiveItem(Item.Item item);
 
         public event Action OnItemCooked;
 
         private void Awake()
         {
-            timer.OnTimerComplete += TimerOnOnTimerComplete;
+            if (timer)
+            {
+                timer.OnTimerComplete += TimerOnOnTimerComplete;
+            }
         }
 
         private void TimerOnOnTimerComplete()
@@ -24,28 +28,34 @@ namespace KitchenTools
             OnItemCooked?.Invoke();
         }
 
-        protected bool CanUseItem(Item item)
+        protected bool CanUseItem(Item.Item item)
         {
-            return acceptedItems.Contains(item);
+            return acceptedItems.Contains(item.ItemSO);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                RunTool();
+                //RunTool(item);
             }
         }
         
-        protected void RunTool()
+        protected void RunTool(Item.Item item)
         {
             SetupTimer();
+            SetupItem(item);
             //TODO: add effects and other stuff
         }
 
         private void SetupTimer()
         {
             timer.StartTimer(cookDuration);
+        }
+
+        private void SetupItem(Item.Item item)
+        {   
+            
         }
     }
 }

@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "Scriptable Objects/Item")]
-public class Item : ScriptableObject
+namespace Item
 {
-    public string itemName;
-    public ItemType itemType;
+    public class Item : MonoBehaviour
+    {
+        [SerializeField] private ItemSO itemSO;
+        
+        public ItemSO ItemSO => itemSO;
+    }
 }
