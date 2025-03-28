@@ -1,13 +1,17 @@
+using Interfaces;
 using KitchenTools;
+using UnityEngine;
 
-public class Oven : KitchenTool
+public class Oven : KitchenTool, IInteractable
 {
-    public override void ReceiveItem(Item item)
+    [SerializeField] private Transform door;
+    public override bool ReceiveItem(Item item)
     {
-        throw new System.NotImplementedException();
+        if (!CanUseItem(item)) return false;
+        return true;
     }
 
-    public override void Interact()
+    public void Interact()
     {
         throw new System.NotImplementedException();
     }
