@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.Interactions;
+using Interfaces;
 using Item;
 using UnityEngine;
 
@@ -85,6 +86,11 @@ public class PlayerInteractor : MonoBehaviour
 
     void Interact()
     {
+        if (_currentHighlightable.GetGameObject().TryGetComponent(out IInteractable interactable))
+        {
+            interactable.Interact();
+        }
+        else
         if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IPickable pickable))
         {
             PickupObject(pickable);
