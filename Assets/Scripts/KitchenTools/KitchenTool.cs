@@ -43,6 +43,7 @@ namespace KitchenTools
                 return;
             }
             IngridientToCook.Cook();
+            CookProvider.Instance.ConvertItem(type, IngridientToCook);
             OnItemCooked?.Invoke();
         }
 
@@ -51,7 +52,7 @@ namespace KitchenTools
         {
             if (IngridientToCook != null)
             {
-                Debug.Log("Item is already used");
+                return false;
             }
             return ingridient && acceptedItems.Contains(ingridient.ItemSO);
         }
@@ -61,7 +62,6 @@ namespace KitchenTools
             IngridientToCook = ingridient;
             SetupTimer();
             SetupItem(ingridient);
-            CookProvider.Instance.ConvertItem(type, ingridient);
             //TODO: add effects and other stuff
         }
 

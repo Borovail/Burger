@@ -10,7 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b5a221d438a4f4489f0f134213f9e64, type: 3}
-  m_Name: Meat
+  m_Name: RatMeat
   m_EditorClassIdentifier: 
-  itemName: Meat
-  itemType: 0
+  itemType: 2
