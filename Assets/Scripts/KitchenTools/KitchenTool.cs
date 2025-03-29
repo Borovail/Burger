@@ -32,14 +32,6 @@ namespace KitchenTools
         {
             return acceptedItems.Contains(item.ItemSO);
         }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                //RunTool(item);
-            }
-        }
         
         protected void RunTool(Item.Item item)
         {
@@ -50,12 +42,14 @@ namespace KitchenTools
 
         private void SetupTimer()
         {
+            if(timer == null) return; 
             timer.StartTimer(cookDuration);
         }
 
         private void SetupItem(Item.Item item)
         {   
-            
+            item.transform.SetParent(ingridientPlace);
+            item.transform.localPosition = Vector3.zero + ingridientPlace.up * (item.Height * 0.5f);
         }
     }
 }

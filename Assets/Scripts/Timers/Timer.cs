@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    public float duration = 5f;
+    protected float duration = 5f;
     private float elapsedTime;
     private bool isRunning;
 
@@ -32,7 +32,11 @@ public class Timer : MonoBehaviour
     private void Update()
     {
         if (!isRunning) return;
+        UpdateTimer();
+    }
 
+    protected virtual void UpdateTimer()
+    {
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= duration)
         {
