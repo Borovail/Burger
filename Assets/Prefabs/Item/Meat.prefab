@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 8438857132518823740}
   - component: {fileID: 7523368729089320832}
   - component: {fileID: 8864934786501506267}
+  - component: {fileID: 2225669412192976783}
   m_Layer: 0
   m_Name: Meat
-  m_TagString: Item
+  m_TagString: Ingridient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,3 +154,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0000001, y: 2.0000002, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &2225669412192976783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625857130420956293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb37bc6e606b8a946a274765c77c6772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _highlightMaterial: {fileID: 0}

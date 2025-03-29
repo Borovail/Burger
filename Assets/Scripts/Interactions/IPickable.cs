@@ -1,10 +1,14 @@
-﻿using Assets.Scripts.Interactions;
+﻿using System;
+using Assets.Scripts.Interactions;
 using UnityEngine;
 
 public interface IPickable
 {
+    event Action OnPickedUp;
     GameObject GetGameObject();
     Rigidbody GetRigidbody();
+    bool CanPickUp();
+    void PickUp();
 }
 
 public interface IInteractableHighlight

@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Interactions;
 using UnityEngine;
 
@@ -45,6 +46,8 @@ namespace Item
             isCooked = true;
         }
 
+        public event Action OnPickedUp;
+
         public GameObject GetGameObject()
         {
             return gameObject;
@@ -53,6 +56,16 @@ namespace Item
         public Rigidbody GetRigidbody()
         {
             return _rigidbody;
+        }
+
+        public bool CanPickUp()
+        {
+            return true;
+        }
+
+        public void PickUp()
+        {
+            OnPickedUp?.Invoke();
         }
     }
 }
