@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Item
 {
     [RequireComponent(typeof(Rigidbody),typeof(Highlightable))]
-    public class Ingredient : MonoBehaviour,IPickable
+    public class Ingredient : Highlightable, IPickable
     {
         [SerializeField] private ItemSO itemSO;
         private Rigidbody _rigidbody;
