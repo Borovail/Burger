@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace KitchenTools
 {
-    public class DishMaker : MonoBehaviour, IKitchenTool
+    public class DishMaker : MonoBehaviour
     {
         [SerializeField] private Receipt receipt;
         [SerializeField] private Transform ingridientPlace;
-
-        private Transform dish;
-        private float offset;
+        [SerializeField] private Dish dishPrefab;
+        
+        private Dish dish;
         private List<Ingridient> ingridients;
         
         public bool HasCookedIngridient => receipt.Ingredients.Count <= ingridients.Count;
@@ -25,23 +25,10 @@ namespace KitchenTools
         {
             if (!dish)
             {
-                dish = new GameObject("dish").transform;
-                dish.SetParent(ingridientPlace);
-                dish.localPosition = Vector3.zero;
-                offset = 0;
+                dish = Instantiate(dishPrefab);
+                dish.Setup(ingridientPlace, receipt);
             }
-            ingridient.transform.SetParent(dish);
-            offset += ingridient.Height * 0.5f;
-            ingridient.transform.localPosition = Vector3.zero + dish.up * offset;
-
-        }
-
-        public Ingridient GiveIngridient()
-        {
-            //TODO: 
-            dish = null;
-            offset = 0;
-            return null;
+            dish.AddIngridient(ingridient);
         }
     }
 }
