@@ -1,6 +1,8 @@
 public enum ItemType
 {
-    Meat = 0,
-    Salad = 1,
-    Knife = 2
+    Null = 0,
+    CowMeat = 1,
+    RatMeat = 2,
+    Salad = 3,
+    Bread = 4
 }

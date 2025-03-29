@@ -4,6 +4,6 @@ namespace KitchenTools
     {
         Oven,
         Pan,
-        Blender
+        DishMaker
     }
 }

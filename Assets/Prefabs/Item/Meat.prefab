@@ -123,4 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83182507e47c459e97716d1391ac8c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSO: {fileID: 11400000, guid: a86ff3d199751f34a9875a737ac91217, type: 2}
+  itemSO: {fileID: 11400000, guid: 53c3bcbbe5cf3e54d92571f289ab4dfe, type: 2}
+  isCooked: 0
+  addedFlavour: 0
+  similarityPercentage: 1
