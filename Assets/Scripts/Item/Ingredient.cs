@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Item
 {
-    [RequireComponent(typeof(Rigidbody),typeof(Highlightable))]
+    [RequireComponent(typeof(Rigidbody))]
     public class Ingredient : Highlightable, IPickable
     {
         [SerializeField] private ItemSO itemSO;
@@ -17,7 +17,6 @@ namespace Item
         private float height;
         private bool canBePickedUp = true;
         private MeshFilter filter;
-        private MeshRenderer renderer;
         
         public bool IsCooked => isCooked;
         public ItemType AddedFlavour => addedFlavour;
@@ -25,11 +24,11 @@ namespace Item
         public ItemSO ItemSO => itemSO;
         public float Height => height;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             height = GetComponent<Collider>().bounds.size.y;
             filter = GetComponent<MeshFilter>();
-            renderer = GetComponent<MeshRenderer>();
             _rigidbody = GetComponent<Rigidbody>();
         }
 
@@ -52,7 +51,7 @@ namespace Item
             if (cookedItemData != null)
             {
                 filter.mesh = cookedItemData.Value.CookedMesh;
-                renderer.materials = cookedItemData.Value.CookedMaterials;
+                _renderer.materials = cookedItemData.Value.CookedMaterials;
             }
         }
 
