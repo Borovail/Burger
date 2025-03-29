@@ -3,7 +3,7 @@
 namespace Assets.Scripts.Interactions
 {
     [RequireComponent(typeof(Highlightable))]
-    public class Meat : MonoBehaviour,IInteractableHighlight
+    public class Meat : MonoBehaviour
     {
         private Rigidbody _rigidbody;
         private Highlightable _highlightable;

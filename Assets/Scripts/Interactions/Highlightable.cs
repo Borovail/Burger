@@ -2,8 +2,16 @@
 
 namespace Assets.Scripts.Interactions
 {
+    public interface IHighlightable
+    {
+        GameObject GetGameObject();
+        void Highlight();
+        void Unhighlight();
+    }
+
+
     [RequireComponent(typeof(MeshRenderer))]
-    public class Highlightable : MonoBehaviour
+    public class Highlightable : MonoBehaviour,IHighlightable
     {
         private MeshRenderer _renderer;
         [SerializeField] private Material _highlightMaterial;
@@ -12,6 +20,13 @@ namespace Assets.Scripts.Interactions
         {
             _renderer = GetComponent<MeshRenderer>();
         }
+
+
+        public GameObject GetGameObject()
+        {
+            return gameObject;
+        }
+
         public void Highlight()
         {
             // Создаем новый массив материалов, который включает подсветку

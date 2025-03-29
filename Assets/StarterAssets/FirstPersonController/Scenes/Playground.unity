@@ -131,8 +131,9 @@ GameObject:
   - component: {fileID: 17802942}
   - component: {fileID: 17802941}
   - component: {fileID: 17802940}
-  - component: {fileID: 17802939}
   - component: {fileID: 17802943}
+  - component: {fileID: 17802945}
+  - component: {fileID: 17802944}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -155,18 +156,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 84163636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &17802939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 17802937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 231fac30dbb239e45bf544f542685864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &17802940
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -268,6 +257,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &17802944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17802937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83182507e47c459e97716d1391ac8c18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemSO: {fileID: 0}
+--- !u!114 &17802945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17802937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb37bc6e606b8a946a274765c77c6772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _highlightMaterial: {fileID: 2100000, guid: 09171fd07d0bf744ebbea66cfd54607b, type: 2}
 --- !u!1 &19819013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1238866832444753971, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
@@ -1566,6 +1581,7 @@ GameObject:
   - component: {fileID: 1623465706}
   - component: {fileID: 1623465705}
   - component: {fileID: 1623465704}
+  - component: {fileID: 1623465708}
   - component: {fileID: 1623465707}
   m_Layer: 0
   m_Name: Pan
@@ -1673,10 +1689,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1623465702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb2a206b3c28f7c4e8b70fba89e297a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9407d241de214eb39d936797941c362e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Center: {fileID: 1293073711}
+  type: 0
+  cookDuration: 5
+  ingridientPlace: {fileID: 1293073711}
+  timer: {fileID: 0}
+  acceptedItems: []
+--- !u!114 &1623465708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623465702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb37bc6e606b8a946a274765c77c6772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _highlightMaterial: {fileID: 2100000, guid: 09171fd07d0bf744ebbea66cfd54607b, type: 2}
 --- !u!1 &1728949232 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6728577107755263854, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
@@ -2341,7 +2374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c973f011ee5f9ff4597c82acc6da47ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 09171fd07d0bf744ebbea66cfd54607b, type: 2}
   HandTransform: {fileID: 1922914210}
 --- !u!1 &2114283753834967212
 GameObject:
