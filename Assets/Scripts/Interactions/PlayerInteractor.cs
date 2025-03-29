@@ -23,7 +23,6 @@ public class PlayerInteractor : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out IHighlightable highlightable))
             {
-
                 if (_currentHighlightable != highlightable)
                 {
                     _currentHighlightable?.Unhighlight();
@@ -69,6 +68,8 @@ public class PlayerInteractor : MonoBehaviour
 
     bool CanInteract()
     {
+        if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IInteractable _))
+            return true;
 
         if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IPickable _))
             return true;
