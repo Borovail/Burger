@@ -9,6 +9,7 @@ public interface IPickable
     Rigidbody GetRigidbody();
     bool CanPickUp();
     void PickUp();
+    void Drop();
 }
 
 public interface IInteractableHighlight

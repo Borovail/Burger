@@ -11,25 +11,34 @@ namespace Timers
         [SerializeField] private Ease showEase = Ease.OutQuint;
         [SerializeField] private Ease hideEase = Ease.InQuint;
         [SerializeField] private Image fillImage;
+        [SerializeField] private Image iconImage;
         [SerializeField] private CanvasGroup canvasGroup;
-
+        [SerializeField] private Sprite startIcon;
+        [SerializeField] private Sprite finishIcon;
+        
+        private bool isVisible;
+        public bool IsVisible => isVisible;
+        
         private void Awake()
         {
             HideInstant();
         }
         
-        private void Show()
+        public void Show()
         {
+            isVisible = true;
             canvasGroup.DOFade(1f, showDuration).SetEase(showEase);
         }
 
-        private void Hide()
+        public void Hide()
         {
+            isVisible = false;
             canvasGroup.DOFade(0f, hideDuration).SetEase(hideEase);
         }
 
         private void HideInstant()
         {
+            isVisible = false;
             canvasGroup.alpha = 0;
         }
 
@@ -43,13 +52,14 @@ namespace Timers
         {
             base.StartTimer(newDuration);
             fillImage.fillAmount = 1f;
+            iconImage.sprite = startIcon;
             Show();
         }
 
         protected override void FinishTimer()
         {
             base.FinishTimer();
-            Hide();
+            iconImage.sprite = finishIcon;
         }
     }
 }

@@ -6,6 +6,7 @@ using Interfaces;
 using Item;
 using Timers;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace KitchenTools
@@ -15,16 +16,15 @@ namespace KitchenTools
     {
         [SerializeField] private ToolType type;
         [SerializeField] private float cookDuration = 5f;
-        [SerializeField] private Transform ingridientPlace;
+        [SerializeField] private Transform ingredientPlace;
         [SerializeField] private UITimer timer;
         [SerializeField] private List<ItemSO> acceptedItems;
         [SerializeField] private TriggerProvider trigger;
-        [SerializeField] protected List<Ingredient> ingridientsToCook;
+        [SerializeField] protected List<Ingredient> ingredientsToCook;
 
         protected bool isCooking;
         
         public abstract void Interact();
-        public event Action OnItemCooked;
 
         private void Awake()
         {
@@ -44,7 +44,7 @@ namespace KitchenTools
                 Ingredient ingredient = other.GetComponent<Ingredient>();
                 if (CanCookIngredient(ingredient))
                 {
-                    ingridientsToCook.Add(ingredient);
+                    ingredientsToCook.Add(ingredient);
                 }
             }
         }
@@ -54,9 +54,14 @@ namespace KitchenTools
             if (other.CompareTag(Tags.Ingridient))
             {
                 Ingredient ingredient = other.GetComponent<Ingredient>();
-                if (ingridientsToCook.Contains(ingredient))
+                if (ingredientsToCook.Contains(ingredient))
                 {
-                    ingridientsToCook.Remove(ingredient);
+                    ingredientsToCook.Remove(ingredient);
+                }
+
+                if (ingredientsToCook.Count == 0 && timer.IsVisible)
+                {
+                    timer.Hide();
                 }
             }
         }
@@ -64,20 +69,19 @@ namespace KitchenTools
         private void TimerOnOnTimerComplete()
         {
             isCooking = false;
-            if (ingridientsToCook.Count == 0)
+            if (ingredientsToCook.Count == 0)
             {
                 Debug.LogError("No item to cook");
                 return;
             }
             
-            foreach (var ingridient in ingridientsToCook)
+            foreach (var ingredient in ingredientsToCook)
             {
-                CookProvider.Instance.ConvertItem(type, ingridient);
-                ingridient.Cook();
-                ingridient.EnablePickUp();
+                CookProvider.Instance.ConvertItem(type, ingredient);
+                ingredient.Cook();
+                ingredient.EnablePickUp();
             }
-            ingridientsToCook.Clear();
-            OnItemCooked?.Invoke();
+            ingredientsToCook.Clear();
         }
 
 
@@ -88,7 +92,7 @@ namespace KitchenTools
 
         protected virtual bool CanRunTool()
         {
-            if(ingridientsToCook.Count == 0) return false;
+            if(ingredientsToCook.Count == 0) return false;
             if(isCooking) return false;
             return true;
         }
@@ -97,7 +101,7 @@ namespace KitchenTools
         {
             isCooking = true;
             SetupTimer();
-            SetupIngridients();
+            SetupIngredients();
             //TODO: add effects and other stuff
         }
 
@@ -107,11 +111,11 @@ namespace KitchenTools
             timer.StartTimer(cookDuration);
         }
 
-        private void SetupIngridients()
+        private void SetupIngredients()
         {
-            foreach (Ingredient ingridient in ingridientsToCook)
+            foreach (Ingredient ingredient in ingredientsToCook)
             {
-                ingridient.DisablePickUp();
+                ingredient.DisablePickUp();
             }
         }
     }
