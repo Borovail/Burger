@@ -7,7 +7,7 @@ public interface IPickable
     Rigidbody GetRigidbody();
 }
 
-public interface IInteractable
+public interface IInteractableHighlight
 {
     public Highlightable GetHighlighter();
     bool CanInteract(GameObject item);

@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Interactions
 {
-    public class Pan : MonoBehaviour,IInteractable
+    public class Pan : MonoBehaviour,IInteractableHighlight
     {
         public Transform Center;
         private MeshRenderer _renderer;

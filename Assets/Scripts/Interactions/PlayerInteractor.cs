@@ -2,13 +2,13 @@ using System;
 using Assets.Scripts.Interactions;
 using UnityEngine;
 
-public class PlayerInteractor : MonoBehaviour // Накинуть на камеру
+public class PlayerInteractor : MonoBehaviour // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 {
     public Material highlightMaterial;
     public Transform HandTransform;
 
 
-    private IInteractable _currentInteractable;
+    private IInteractableHighlight _currentInteractableHighlight;
     private GameObject _heldObject;
 
     void Update()
@@ -20,29 +20,29 @@ public class PlayerInteractor : MonoBehaviour // Накинуть на камеру
 
         if (Physics.Raycast(ray, out hit))
         {
-            var interactable = hit.collider.GetComponent<IInteractable>();
+            var interactable = hit.collider.GetComponent<IInteractableHighlight>();
             if (interactable != null)
             {
-                if (_currentInteractable != interactable)
+                if (_currentInteractableHighlight != interactable)
                 {
-                    _currentInteractable.GetHighlighter().Unhighlight();
-                    _currentInteractable = interactable;
+                    _currentInteractableHighlight.GetHighlighter().Unhighlight();
+                    _currentInteractableHighlight = interactable;
 
-                    if (_currentInteractable.CanInteract(_heldObject))
-                        _currentInteractable.GetHighlighter().Unhighlight();
+                    if (_currentInteractableHighlight.CanInteract(_heldObject))
+                        _currentInteractableHighlight.GetHighlighter().Unhighlight();
                 }
             }
             else
-                _currentInteractable?.GetHighlighter().Unhighlight();
+                _currentInteractableHighlight?.GetHighlighter().Unhighlight();
         }
         else
-            _currentInteractable.GetHighlighter().Unhighlight();
+            _currentInteractableHighlight.GetHighlighter().Unhighlight();
         //}
 
-        if (Input.GetMouseButtonUp(0) && _currentInteractable != null)
+        if (Input.GetMouseButtonUp(0) && _currentInteractableHighlight != null)
         {
-            if (_currentInteractable.CanInteract(_heldObject))
-                PickupObject(_currentInteractable.Interact(_heldObject));
+            if (_currentInteractableHighlight.CanInteract(_heldObject))
+                PickupObject(_currentInteractableHighlight.Interact(_heldObject));
         }
         if (Input.GetMouseButtonUp(1) && _heldObject!=null)
         {
@@ -76,7 +76,7 @@ public class PlayerInteractor : MonoBehaviour // Накинуть на камеру
     //    else if (_heldObject != null && _heldObject.TryGetComponent(out Meat meat) && _currentInteractable is Pan pan && !pan.HaveMeat())
     //    {
     //        DropObject();
-    //        pan.StartСooking(meat);
+    //        pan.StartпїЅooking(meat);
     //    }
 
     //    else if (_heldObject == null && _currentInteractable is Pan otherPan)
