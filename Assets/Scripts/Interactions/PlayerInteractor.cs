@@ -56,6 +56,14 @@ public class PlayerInteractor : MonoBehaviour
             DropObject();
         }
 
+        float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
+        if (_heldObject != null && Mathf.Abs(scrollDelta) > 0f)
+        {
+            float moveSpeed = 1f; // Настраиваемая скорость перемещения
+            // Если scrollDelta > 0, объект отдаляется (двигается вдоль положительного Z)
+            // Если scrollDelta < 0, объект приближается (двигается вдоль отрицательного Z)
+            _heldObject.transform.localPosition += Vector3.forward * scrollDelta * moveSpeed;
+        }
     }
 
     bool CanInteract()
@@ -92,8 +100,8 @@ public class PlayerInteractor : MonoBehaviour
         _heldObject = objectToPick.GetGameObject();
 
         objectToPick.GetRigidbody().isKinematic = true;
+        HandTransform.position = _heldObject.transform.position;
         _heldObject.transform.SetParent(HandTransform);
-        _heldObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
     void DropObject()
