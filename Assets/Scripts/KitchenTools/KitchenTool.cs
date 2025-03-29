@@ -15,9 +15,15 @@ namespace KitchenTools
         [SerializeField] private UITimer timer;
         [SerializeField] private List<ItemSO> acceptedItems;
 
-        protected CookedItem itemToCook;
+        protected Item.Ingridient IngridientToCook;
 
-        public abstract void ReceiveItem(Item.Item item);
+        public bool HasCookedIngridient => IngridientToCook != null && IngridientToCook.IsCooked;
+
+        public abstract void ReceiveIngridient(Ingridient ingridient);
+        public Ingridient GiveIngridient()
+        {
+            return IngridientToCook;
+        }
 
         public event Action OnItemCooked;
 
@@ -31,31 +37,31 @@ namespace KitchenTools
 
         private void TimerOnOnTimerComplete()
         {
-            if (itemToCook == null)
+            if (IngridientToCook == null)
             {
                 Debug.LogError("No item to cook");
                 return;
             }
-            itemToCook.Cook();
+            IngridientToCook.Cook();
             OnItemCooked?.Invoke();
         }
 
-        public bool CanUseItem(Item.Item item)
-        {
 
-            if (itemToCook != null)
+        public virtual bool CanCookIngridient(Ingridient ingridient)
+        {
+            if (IngridientToCook != null)
             {
                 Debug.Log("Item is already used");
             }
-            return item && acceptedItems.Contains(item.ItemSO);
+            return ingridient && acceptedItems.Contains(ingridient.ItemSO);
         }
         
-        protected void RunTool(Item.Item item)
+        protected void RunTool(Ingridient ingridient)
         {
-            itemToCook = new CookedItem(item);
+            IngridientToCook = ingridient;
             SetupTimer();
-            SetupItem(item);
-            CookProvider.Instance.ConvertItem(type, item, null);
+            SetupItem(ingridient);
+            CookProvider.Instance.ConvertItem(type, ingridient);
             //TODO: add effects and other stuff
         }
 
@@ -65,10 +71,10 @@ namespace KitchenTools
             timer.StartTimer(cookDuration);
         }
 
-        private void SetupItem(Item.Item item)
+        private void SetupItem(Ingridient ingridient)
         {   
-            item.transform.SetParent(ingridientPlace);
-            item.transform.localPosition = Vector3.zero + ingridientPlace.up * (item.Height * 0.5f);
+            ingridient.transform.SetParent(ingridientPlace);
+            ingridient.transform.localPosition = Vector3.zero + ingridientPlace.up * (ingridient.Height * 0.5f);
         }
     }
 }

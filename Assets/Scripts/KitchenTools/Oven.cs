@@ -1,33 +1,29 @@
 using Interactibles;
+using Item;
 using KitchenTools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Oven : KitchenTool
 {
-    [SerializeField] private Item.Item debugItem;
+    [FormerlySerializedAs("debugItem")] [SerializeField] private Item.Ingridient debugIngridient;
     [SerializeField] private Door door;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            RunTool(debugItem);
+            RunTool(debugIngridient);
         }
     }
-    
-    public override void ReceiveItem(Item.Item item)
+
+    public override bool CanCookIngridient(Ingridient ingridient)
     {
-        if (!CanUseItem(item)) return;
-/*
-        if (itemToCook != null && itemToCook.IsCooked)
-        {
-            return itemToCook.Item;
-        }
-  */      
-        if (!door.IsOpen)
-        {
-            door.Interact();
-            return;
-        }
-        RunTool(item);
+        return door.IsOpen && base.CanCookIngridient(ingridient);
+    }
+
+    public override void ReceiveIngridient(Item.Ingridient ingridient)
+    {
+        if (!CanCookIngridient(ingridient)) return;
+        RunTool(ingridient);
     }
 }

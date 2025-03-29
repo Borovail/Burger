@@ -1,3 +1,4 @@
+using Item;
 using KitchenTools;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace DefaultNamespace
             }
         }
 
-        public void ConvertItem(ToolType toolType, Item.Item item1, Item.Item item2)
+        public void ConvertItem(ToolType toolType, Ingridient item)
         {
             Debug.Log("Cooking started!");
         }
