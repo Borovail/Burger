@@ -22,12 +22,12 @@ namespace KitchenTools
         //
         public bool HasCookedIngridient => !dish || receipt.Ingredients.Count <= dish.Ingredients.Count;
 
-        public bool CanGetIngridient(Ingridient ingridient)
+        public bool CanGetIngridient(Ingredient ingredient)
         {
             return !HasCookedIngridient;
         }
 
-        private void ReceiveIngridient(Ingridient ingridient)
+        private void ReceiveIngridient(Ingredient ingredient)
         {
             if (!dish)
             {
@@ -35,7 +35,7 @@ namespace KitchenTools
                 dish.OnPickedUp += OnDishPickedUp;
                 dish.Setup(ingridientPlace, receipt);
             }
-            dish.AddIngridient(ingridient);
+            dish.AddIngridient(ingredient);
         }
 
         private void OnDishPickedUp()
@@ -43,10 +43,10 @@ namespace KitchenTools
             dish.OnPickedUp -= OnDishPickedUp;
         }
 
-        private void RemoveIngridient(Ingridient ingridient)
+        private void RemoveIngridient(Ingredient ingredient)
         {
             if (!dish) return;
-            dish.RemoveIngridient(ingridient);
+            dish.RemoveIngridient(ingredient);
         }
 
         
@@ -54,10 +54,10 @@ namespace KitchenTools
         {
             if (other.CompareTag(Tags.Ingridient))
             {
-                Ingridient ingridient = other.GetComponent<Ingridient>();
-                if (CanGetIngridient(ingridient))
+                Ingredient ingredient = other.GetComponent<Ingredient>();
+                if (CanGetIngridient(ingredient))
                 {
-                    ReceiveIngridient(ingridient);
+                    ReceiveIngridient(ingredient);
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace KitchenTools
         {
             if (other.CompareTag(Tags.Ingridient))
             {
-                RemoveIngridient(other.GetComponent<Ingridient>());
+                RemoveIngridient(other.GetComponent<Ingredient>());
             }
         }
     }
