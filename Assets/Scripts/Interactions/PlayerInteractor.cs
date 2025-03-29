@@ -23,8 +23,6 @@ public class PlayerInteractor : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out IHighlightable highlightable))
             {
-                Debug.Log("Found highlightable");
-
                 if (_currentHighlightable != highlightable)
                 {
                     _currentHighlightable?.Unhighlight();
@@ -61,9 +59,7 @@ public class PlayerInteractor : MonoBehaviour
         float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
         if (_heldObject != null && Mathf.Abs(scrollDelta) > 0f)
         {
-            float moveSpeed = 1f; // ������������� �������� �����������
-            // ���� scrollDelta > 0, ������ ���������� (��������� ����� �������������� Z)
-            // ���� scrollDelta < 0, ������ ������������ (��������� ����� �������������� Z)
+            float moveSpeed = 1f;
             _heldObject.transform.localPosition += Vector3.forward * scrollDelta * moveSpeed;
         }
     }
@@ -95,13 +91,14 @@ public class PlayerInteractor : MonoBehaviour
         {
             interactable.Interact();
         }
-        else
-        if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IPickable pickable))
+        else if (_currentHighlightable.GetGameObject().TryGetComponent(out IPickable pickable) && _heldObject == null)
         {
+            pickable.PickUp();
             PickupObject(pickable);
         }
         else if (_heldObject != null)
         {
+            pickable.Drop();
             DropObject();
         }
     }
@@ -117,6 +114,10 @@ public class PlayerInteractor : MonoBehaviour
 
     void DropObject()
     {
+        if (_heldObject.TryGetComponent(out IPickable pickable))
+        {
+            pickable.Drop();
+        }
         _heldObject.transform.SetParent(null);
         _heldObject.GetComponent<Rigidbody>().isKinematic = false;
         _heldObject = null;

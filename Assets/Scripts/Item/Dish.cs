@@ -2,45 +2,69 @@ using System;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
+using Utils;
 
 namespace Item
 {
     public class Dish : MonoBehaviour, IPickable
     {
-        [SerializeField] private List<Ingredient> ingridients;
+        [SerializeField] private List<Ingredient> ingredients;
+        [SerializeField] private TriggerProvider triggerProvider;
         private float offset;
         private Receipt receipt;
         private Rigidbody rigidbody;
-        
-        public List<Ingredient> Ingredients => ingridients;
-        
+
+        public bool IsFull => receipt.Ingredients.Count <= ingredients.Count;
+
         //TODO: add similarity view, calculations
 
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
+            triggerProvider.OnEnter += TriggerProviderOnOnEnter;
+            triggerProvider.OnExit += TriggerProviderOnOnExit;
+
         }
+        
+        private void TriggerProviderOnOnExit(Collider other)
+        {
+            if (other.CompareTag(Tags.Ingridient))
+            {
+                RemoveIngredient(other.GetComponent<Ingredient>());
+            }
+        }
+
+        private void TriggerProviderOnOnEnter(Collider other)
+        {
+            if (other.CompareTag(Tags.Ingridient))
+            {
+                Ingredient ingredient = other.GetComponent<Ingredient>();
+                if (!IsFull)
+                {
+                    AddIngredient(ingredient);
+                }
+            }
+        }
+
         
         public void Setup(Transform parent, Receipt receipt)
         {
             this.receipt = receipt;
             transform.SetParent(parent);
             transform.localPosition = Vector3.zero;
+            transform.localScale = Vector3.one;
         }
         
-        public void AddIngridient(Ingredient ingredient)
+        public void AddIngredient(Ingredient ingredient)
         {
-            ingredient.GetRigidbody().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationZ;
-            ingridients.Add(ingredient);
-            ingredient.transform.SetParent(transform);
-            offset += ingredient.Height * 0.5f;
-            ingredient.transform.localPosition = Vector3.zero + transform.up * (offset + 2);
+            ingredient.GetRigidbody().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            ingredients.Add(ingredient);
         }
 
-        public void RemoveIngridient(Ingredient ingredient)
+        public void RemoveIngredient(Ingredient ingredient)
         {
-            offset -= ingredient.Height * 0.5f;
-            ingridients.Remove(ingredient);
+            ingredient.GetRigidbody().constraints = RigidbodyConstraints.None;
+            ingredients.Remove(ingredient);
         }
 
         public event Action OnPickedUp;
@@ -57,12 +81,28 @@ namespace Item
 
         public bool CanPickUp()
         {
-            return receipt.Ingredients.Count <= ingridients.Count;
+            return true;
         }
 
         public void PickUp()
         {
+            foreach (Ingredient ingredient in ingredients)
+            {
+                ingredient.transform.SetParent(transform);
+                ingredient.GetRigidbody().isKinematic = true;
+            }
             OnPickedUp?.Invoke();
+        }
+
+        public void Drop()
+        {
+            GetRigidbody().isKinematic = false;
+            foreach (Ingredient ingredient in ingredients)
+            {
+                //ingredient.transform.SetParent(null);
+                ingredient.GetRigidbody().constraints = RigidbodyConstraints.None;
+                ingredient.GetRigidbody().isKinematic = false;
+            }
         }
     }
 }

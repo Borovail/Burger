@@ -78,6 +78,10 @@ namespace Item
             OnPickedUp?.Invoke();
         }
 
+        public void Drop()
+        {
+        }
+
         public void EnablePickUp()
         {
             canBePickedUp = true;
