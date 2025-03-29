@@ -39,7 +39,7 @@ namespace KitchenTools
 
         private void TriggerOnOnEnter(Collider other)
         {
-            if (other.CompareTag(Tags.Ingridient))
+            if (other.CompareTag(Tags.Ingredient))
             {
                 Ingredient ingredient = other.GetComponent<Ingredient>();
                 if (CanCookIngredient(ingredient))
@@ -51,7 +51,7 @@ namespace KitchenTools
 
         private void TriggerOnOnExit(Collider other)
         {
-            if (other.CompareTag(Tags.Ingridient))
+            if (other.CompareTag(Tags.Ingredient))
             {
                 Ingredient ingredient = other.GetComponent<Ingredient>();
                 if (ingredientsToCook.Contains(ingredient))

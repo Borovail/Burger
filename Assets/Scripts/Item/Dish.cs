@@ -28,7 +28,7 @@ namespace Item
         
         private void TriggerProviderOnOnExit(Collider other)
         {
-            if (other.CompareTag(Tags.Ingridient))
+            if (other.CompareTag(Tags.Ingredient))
             {
                 RemoveIngredient(other.GetComponent<Ingredient>());
             }
@@ -36,7 +36,7 @@ namespace Item
 
         private void TriggerProviderOnOnEnter(Collider other)
         {
-            if (other.CompareTag(Tags.Ingridient))
+            if (other.CompareTag(Tags.Ingredient))
             {
                 Ingredient ingredient = other.GetComponent<Ingredient>();
                 if (!IsFull)
