@@ -154,6 +154,7 @@ MonoBehaviour:
   acceptedItems:
   - {fileID: 11400000, guid: a86ff3d199751f34a9875a737ac91217, type: 2}
   debugItem: {fileID: 1782324272}
+  door: {fileID: 664741330}
 --- !u!4 &202248259
 Transform:
   m_ObjectHideFlags: 0

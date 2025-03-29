@@ -9,15 +9,16 @@ namespace Interactibles
         [SerializeField] private Transform door;
         [SerializeField] private Vector3 doorOpenRotation;
         [SerializeField] private float doorRotateDuration;
-        private bool IsOpen = false;
+        private bool isOpen = false;
         private Vector3 doorInitialRotation;
-    
+
+        public bool IsOpen => isOpen;
+        
         private void Start()
         {
             doorInitialRotation = door.localEulerAngles;
         }
 
-        
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.S))
@@ -28,8 +29,8 @@ namespace Interactibles
         
         public void Interact()
         {
-            IsOpen = !IsOpen;
-            if (IsOpen)
+            isOpen = !isOpen;
+            if (isOpen)
             {
                 door.DOLocalRotate(doorOpenRotation, doorRotateDuration);
             }

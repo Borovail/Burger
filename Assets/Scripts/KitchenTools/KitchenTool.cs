@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using DefaultNamespace;
+using Item;
 using Timers;
 using UnityEngine;
 
@@ -7,11 +9,15 @@ namespace KitchenTools
 {
     public abstract class KitchenTool : MonoBehaviour, IKitchenTool
     {
+        [SerializeField] private ToolType type;
         [SerializeField] private float cookDuration = 5f;
         [SerializeField] private Transform ingridientPlace;
         [SerializeField] private UITimer timer;
         [SerializeField] private List<ItemSO> acceptedItems;
-        public abstract bool ReceiveItem(Item.Item item);
+
+        protected CookedItem itemToCook;
+
+        public abstract void ReceiveItem(Item.Item item);
 
         public event Action OnItemCooked;
 
@@ -25,24 +31,37 @@ namespace KitchenTools
 
         private void TimerOnOnTimerComplete()
         {
+            if (itemToCook == null)
+            {
+                Debug.LogError("No item to cook");
+                return;
+            }
+            itemToCook.Cook();
             OnItemCooked?.Invoke();
         }
 
-        protected bool CanUseItem(Item.Item item)
+        public bool CanUseItem(Item.Item item)
         {
-            return acceptedItems.Contains(item.ItemSO);
+
+            if (itemToCook != null)
+            {
+                Debug.Log("Item is already used");
+            }
+            return item && acceptedItems.Contains(item.ItemSO);
         }
         
         protected void RunTool(Item.Item item)
         {
+            itemToCook = new CookedItem(item);
             SetupTimer();
             SetupItem(item);
+            CookProvider.Instance.ConvertItem(type, item, null);
             //TODO: add effects and other stuff
         }
 
         private void SetupTimer()
         {
-            if(timer == null) return; 
+            if(!timer) return; 
             timer.StartTimer(cookDuration);
         }
 

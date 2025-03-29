@@ -1,10 +1,11 @@
+using Interactibles;
 using KitchenTools;
 using UnityEngine;
 
 public class Oven : KitchenTool
 {
     [SerializeField] private Item.Item debugItem;
-    
+    [SerializeField] private Door door;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -12,14 +13,21 @@ public class Oven : KitchenTool
             RunTool(debugItem);
         }
     }
-
     
-    public override bool ReceiveItem(Item.Item item)
+    public override void ReceiveItem(Item.Item item)
     {
-        if (!CanUseItem(item)) return false;
-        
+        if (!CanUseItem(item)) return;
+/*
+        if (itemToCook != null && itemToCook.IsCooked)
+        {
+            return itemToCook.Item;
+        }
+  */      
+        if (!door.IsOpen)
+        {
+            door.Interact();
+            return;
+        }
         RunTool(item);
-        
-        return true;
     }
 }

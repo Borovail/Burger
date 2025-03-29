@@ -1,6 +1,5 @@
-using UnityEngine;
-
 public interface IKitchenTool
 {
-    bool ReceiveItem(Item.Item item);
+    bool CanUseItem(Item.Item item);
+    void ReceiveItem(Item.Item item);
 }
