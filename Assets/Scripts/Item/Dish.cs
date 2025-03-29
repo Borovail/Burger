@@ -7,12 +7,12 @@ namespace Item
 {
     public class Dish : MonoBehaviour, IPickable
     {
-        [SerializeField] private List<Ingridient> ingridients;
+        [SerializeField] private List<Ingredient> ingridients;
         private float offset;
         private Receipt receipt;
         private Rigidbody rigidbody;
         
-        public List<Ingridient> Ingredients => ingridients;
+        public List<Ingredient> Ingredients => ingridients;
         
         //TODO: add similarity view, calculations
 
@@ -28,19 +28,19 @@ namespace Item
             transform.localPosition = Vector3.zero;
         }
         
-        public void AddIngridient(Ingridient ingridient)
+        public void AddIngridient(Ingredient ingredient)
         {
-            ingridient.GetRigidbody().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationZ;
-            ingridients.Add(ingridient);
-            ingridient.transform.SetParent(transform);
-            offset += ingridient.Height * 0.5f;
-            ingridient.transform.localPosition = Vector3.zero + transform.up * (offset + 2);
+            ingredient.GetRigidbody().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationZ;
+            ingridients.Add(ingredient);
+            ingredient.transform.SetParent(transform);
+            offset += ingredient.Height * 0.5f;
+            ingredient.transform.localPosition = Vector3.zero + transform.up * (offset + 2);
         }
 
-        public void RemoveIngridient(Ingridient ingridient)
+        public void RemoveIngridient(Ingredient ingredient)
         {
-            offset -= ingridient.Height * 0.5f;
-            ingridients.Remove(ingridient);
+            offset -= ingredient.Height * 0.5f;
+            ingridients.Remove(ingredient);
         }
 
         public event Action OnPickedUp;

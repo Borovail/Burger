@@ -23,6 +23,7 @@ public class PlayerInteractor : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out IHighlightable highlightable))
             {
+                Debug.Log("Found highlightable");
 
                 if (_currentHighlightable != highlightable)
                 {
@@ -60,25 +61,29 @@ public class PlayerInteractor : MonoBehaviour
         float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
         if (_heldObject != null && Mathf.Abs(scrollDelta) > 0f)
         {
-            float moveSpeed = 1f; // Настраиваемая скорость перемещения
-            // Если scrollDelta > 0, объект отдаляется (двигается вдоль положительного Z)
-            // Если scrollDelta < 0, объект приближается (двигается вдоль отрицательного Z)
+            float moveSpeed = 1f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            // пїЅпїЅпїЅпїЅ scrollDelta > 0, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Z)
+            // пїЅпїЅпїЅпїЅ scrollDelta < 0, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Z)
             _heldObject.transform.localPosition += Vector3.forward * scrollDelta * moveSpeed;
         }
     }
 
     bool CanInteract()
     {
+        if (_currentHighlightable.GetGameObject().TryGetComponent(out IInteractable interactable))
+        {
+            return true;
+        }
 
-        if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IPickable _))
+        if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IPickable pickable))
+            return pickable.CanPickUp();
+
+        if (_heldObject != null && _heldObject.TryGetComponent(out Ingredient ingridient)
+            && _currentHighlightable.GetGameObject().TryGetComponent(out IKitchenTool kitchenTool) && kitchenTool.CanCookIngredient(ingridient))
             return true;
 
-        if (_heldObject != null && _heldObject.TryGetComponent(out Ingridient ingridient)
-            && _currentHighlightable.GetGameObject().TryGetComponent(out IKitchenTool kitchenTool) && kitchenTool.CanCookIngridient(ingridient))
-            return true;
-
-        if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IKitchenTool otherKitchenTool) && otherKitchenTool.HasCookedIngridient)
-            return true;
+        // if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IKitchenTool otherKitchenTool) && otherKitchenTool.HasCookedIngridient)
+        //     return true;
 
         return false;
     }

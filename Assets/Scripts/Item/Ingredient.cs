@@ -1,20 +1,23 @@
 using System;
 using Assets.Scripts.Interactions;
+using DefaultNamespace;
 using UnityEngine;
 
 namespace Item
 {
     [RequireComponent(typeof(Rigidbody),typeof(Highlightable))]
-    public class Ingridient : MonoBehaviour,IPickable
+    public class Ingredient : MonoBehaviour,IPickable
     {
         [SerializeField] private ItemSO itemSO;
         private Rigidbody _rigidbody;
-        private Highlightable _highlightable;
 
         [SerializeField] private bool isCooked;
         [SerializeField] private ItemType addedFlavour = ItemType.Null;
         [SerializeField] private float similarityPercentage = 1f;
         private float height;
+        private bool canBePickedUp = true;
+        private MeshFilter filter;
+        private MeshRenderer renderer;
         
         public bool IsCooked => isCooked;
         public ItemType AddedFlavour => addedFlavour;
@@ -25,8 +28,9 @@ namespace Item
         private void Awake()
         {
             height = GetComponent<Collider>().bounds.size.y;
+            filter = GetComponent<MeshFilter>();
+            renderer = GetComponent<MeshRenderer>();
             _rigidbody = GetComponent<Rigidbody>();
-            _highlightable = GetComponent<Highlightable>();
         }
 
         public void AddFlavour(ItemSO addedFlavour)
@@ -34,7 +38,7 @@ namespace Item
             this.addedFlavour = addedFlavour.itemType;
         }
 
-        public void ChangeIngridient(ItemSO itemSo, float similarityPercent)
+        public void ChangeIngredient(ItemSO itemSo, float similarityPercent)
         {
             addedFlavour = ItemType.Null;
             itemSO = itemSo;
@@ -44,6 +48,12 @@ namespace Item
         public void Cook()
         {
             isCooked = true;
+            CookedItemData? cookedItemData = CookProvider.Instance.CookedData.GetItemByType(itemSO.itemType);
+            if (cookedItemData != null)
+            {
+                filter.mesh = cookedItemData.Value.CookedMesh;
+                renderer.materials = cookedItemData.Value.CookedMaterials;
+            }
         }
 
         public event Action OnPickedUp;
@@ -60,12 +70,22 @@ namespace Item
 
         public bool CanPickUp()
         {
-            return true;
+            return canBePickedUp;
         }
 
         public void PickUp()
         {
             OnPickedUp?.Invoke();
+        }
+
+        public void EnablePickUp()
+        {
+            canBePickedUp = true;
+        }
+
+        public void DisablePickUp()
+        {
+            canBePickedUp = false;
         }
     }
 }

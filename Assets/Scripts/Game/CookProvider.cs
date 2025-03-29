@@ -8,6 +8,9 @@ namespace DefaultNamespace
     public class CookProvider : MonoBehaviour
     {
         [SerializeField] private List<CookingRule> rules;
+        [SerializeField] private CookedData cookedData;
+        public CookedData CookedData => cookedData;
+
         public static CookProvider Instance { get; private set; }
 
         private void Awake()
@@ -23,13 +26,13 @@ namespace DefaultNamespace
             }
         }
 
-        public void ConvertItem(ToolType toolType, Ingridient item)
+        public void ConvertItem(ToolType toolType, Ingredient item)
         {
             foreach (CookingRule rule in rules)
             {
                 if (rule.ToolType == toolType && item.ItemSO.itemType == rule.StartIngridient && item.AddedFlavour == rule.StartFlavorIngridient)
                 {
-                    item.ChangeIngridient(rule.TargetIngridient, rule.SimilarityPercentage);   
+                    item.ChangeIngredient(rule.TargetIngridient, rule.SimilarityPercentage);   
                 }
             }
         }

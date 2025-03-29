@@ -19,14 +19,6 @@ namespace Interactibles
             doorInitialRotation = door.localEulerAngles;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                Interact();
-            }
-        }
-        
         public void Interact()
         {
             isOpen = !isOpen;
