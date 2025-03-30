@@ -78,7 +78,20 @@ namespace KitchenTools
 
         public virtual bool CanCookIngredient(Ingredient ingredient)
         {
-            return ingredient && (acceptedItems.Contains(IngredientType.Any) || acceptedItems.Contains(ingredient.Type));
+            if (acceptedItems.Contains(IngredientType.Any))
+            {
+                return true;
+            }
+            if (acceptedItems.Contains(IngredientType.MainOnly))
+            {
+                return CookProvider.Instance.IsMainIngredient(ingredient.Type);
+            }
+
+            if (acceptedItems.Contains(IngredientType.FlavoursOnly))
+            {
+                return CookProvider.Instance.IsFlavour(ingredient.Type);
+            }
+            return acceptedItems.Contains(ingredient.Type);
         }
 
         protected virtual bool CanRunTool()

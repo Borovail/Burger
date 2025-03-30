@@ -9,8 +9,4 @@ namespace Assets.Scripts.Interactions
         void Unhighlight();
     }
 
-    public interface IPickable
-    {
-
-    }
 }

@@ -184,6 +184,7 @@ MonoBehaviour:
   similarityPercentage: 1
   addedFlavour: 0
   ui: {fileID: 8379165269084992986}
+  isFlavour: 0
   isCooked: 0
 --- !u!54 &5682352036969419798
 Rigidbody:

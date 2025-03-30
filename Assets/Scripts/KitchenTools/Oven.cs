@@ -28,7 +28,7 @@ public class Oven : KitchenTool
         foreach (var ingredient in ingredientsToCook)
         {
             CookProvider.Instance.ConvertItem(type, ingredient);
-            ingredient.Cook();
+            ingredient.Cook(type);
         }
         ingredientsToCook.Clear();
     }

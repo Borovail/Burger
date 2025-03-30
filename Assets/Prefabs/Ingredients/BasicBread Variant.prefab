@@ -60,10 +60,6 @@ PrefabInstance:
       propertyPath: type
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 6244597457647299317, guid: 3d90c64fa14c1d84ea8b5984ceea30f5, type: 3}
-      propertyPath: isCooked
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6417813132767267415, guid: 3d90c64fa14c1d84ea8b5984ceea30f5, type: 3}
       propertyPath: m_Name
       value: Bread--- Main

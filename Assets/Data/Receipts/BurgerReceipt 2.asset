@@ -14,4 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Mc docnek
   description: Bread, Meat, Salad, Bread
-  ingredients: 04000000010000000300000004000000
+  ingredients:
+  - Type: 9
+    Tool: 1
+  - Type: 1
+    Tool: 2
+  - Type: 10
+    Tool: 1

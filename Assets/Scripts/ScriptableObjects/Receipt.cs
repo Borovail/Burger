@@ -9,9 +9,9 @@ namespace DefaultNamespace
     {
         [SerializeField] private string title;
         [SerializeField] private string description;
-        [SerializeField] private List<IngredientType> ingredients;
+        [SerializeField] private List<IngredientRecipeType> ingredients;
         
-        public List<IngredientType> Ingredients => ingredients;
+        public List<IngredientRecipeType> Ingredients => ingredients;
         public string Title => title;
         public string Description => description;
     }

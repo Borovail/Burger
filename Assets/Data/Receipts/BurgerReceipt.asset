@@ -13,5 +13,11 @@ MonoBehaviour:
   m_Name: BurgerReceipt
   m_EditorClassIdentifier: 
   title: Mc Cheeese
-  description: Bread, Meat, Bread
-  ingredients: 040000000100000004000000
+  description: Bread, Meat (Pan), Bread (Pan)
+  ingredients:
+  - Type: 4
+    Tool: 3
+  - Type: 1
+    Tool: 1
+  - Type: 4
+    Tool: 1

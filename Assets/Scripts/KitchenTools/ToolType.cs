@@ -4,6 +4,7 @@ namespace KitchenTools
     {
         Oven,
         Pan,
-        Mixer
+        Mixer,
+        Null
     }
 }
