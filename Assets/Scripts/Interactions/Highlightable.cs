@@ -12,10 +12,10 @@ namespace Assets.Scripts.Interactions
 
     public class Highlightable : MonoBehaviour,IHighlightable
     {
-        [SerializeField] private Renderer _renderer;
+        [SerializeField] protected Renderer _renderer;
         [SerializeField] private Material _highlightMaterial;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (_renderer != null) return;
             if (!TryGetComponent(out _renderer))
