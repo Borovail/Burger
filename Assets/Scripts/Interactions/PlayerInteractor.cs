@@ -18,7 +18,7 @@ public class PlayerInteractor : MonoBehaviour
         //if (_heldObject == null)
         //{
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit,4f))
         {
             if (hit.collider.TryGetComponent(out IHighlightable highlightable))
             {

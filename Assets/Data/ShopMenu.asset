@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1728367b87bcf3b4b8e0056eb5ea49e1, type: 3}
+  m_Name: ShopMenu
+  m_EditorClassIdentifier: 
+  shopItems:
+  - ingredient: {fileID: 8294165842159178608, guid: d8817acb0819f3146914d1ea3a044dff, type: 3}
+    baseCost: 25
+    similarity: 1
+  - ingredient: {fileID: 6786369663744758624, guid: 322e9a550a745bf40a53c2ed46956258, type: 3}
+    baseCost: 23
+    similarity: 1
+  - ingredient: {fileID: 3640854481631151063, guid: 619b467b828c2fd4c80f27de4eb4bdea, type: 3}
+    baseCost: 20
+    similarity: 1
+  - ingredient: {fileID: 5867955918250276712, guid: 37fcf4894e63c9449b01e89077a61fc2, type: 3}
+    baseCost: 29
+    similarity: 1
+  - ingredient: {fileID: 4959799478788490764, guid: 2aec73976642878418101ec81b7cdfcb, type: 3}
+    baseCost: 24
+    similarity: 1

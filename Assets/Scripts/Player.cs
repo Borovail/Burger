@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     
     public void RemoveMoney(int amount)
     {
-        money += amount;
+        money -= amount;
         moneyText.text = "Money: " + money;
     }
 
