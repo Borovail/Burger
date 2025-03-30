@@ -23,8 +23,26 @@ MonoBehaviour:
     cookedMaterials:
     - {fileID: 2100000, guid: b3737475b3717db4cabb07581e28a3bf, type: 2}
     icon: {fileID: 21300000, guid: 0f5f3b97db7d31f4089e7959de1ef116, type: 3}
-  - ingredientType: 6
-    cookedMesh: {fileID: -7604053649368196830, guid: 3f85a287d1d712348aad8d756c7c3bfe, type: 3}
+  - ingredientType: 3
+    cookedMesh: {fileID: -682357888511628354, guid: e11d9cbcb51649a4d8f186784d5a4f97, type: 3}
     cookedMaterials:
     - {fileID: 2100000, guid: b3737475b3717db4cabb07581e28a3bf, type: 2}
+    icon: {fileID: 21300000, guid: 4ef9225ebd3effd408292a03c1535660, type: 3}
+  - ingredientType: 9
+    cookedMesh: {fileID: -3824287831501168549, guid: b17dcdfd91e7bfc438c89c0e492afec1, type: 3}
+    cookedMaterials:
+    - {fileID: 2100000, guid: b3737475b3717db4cabb07581e28a3bf, type: 2}
+    icon: {fileID: 21300000, guid: 0e811814cdbbb964faad10d54be46ae0, type: 3}
+  - ingredientType: 11
+    cookedMesh: {fileID: 4624954665066789184, guid: c77e13b355f72044683605dafb23df16, type: 3}
+    cookedMaterials:
+    - {fileID: 2100000, guid: b3737475b3717db4cabb07581e28a3bf, type: 2}
+    icon: {fileID: 21300000, guid: e5d6be145487e104b9571856569e769f, type: 3}
+  - ingredientType: 5
+    cookedMesh: {fileID: 0}
+    cookedMaterials: []
     icon: {fileID: 21300000, guid: 1b14ec843c217a44884c9bbc1ca7dc53, type: 3}
+  - ingredientType: 6
+    cookedMesh: {fileID: 0}
+    cookedMaterials: []
+    icon: {fileID: 21300000, guid: 7452b0a585e88b04b8e9809b5a41ea0e, type: 3}

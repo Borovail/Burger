@@ -44,6 +44,8 @@ namespace DefaultNamespace
                 case IngredientType.Meat:
                 case IngredientType.Bread:
                 case IngredientType.Salad:
+                case IngredientType.Cheese:
+                case IngredientType.Tomato:
                 return true;
             }
             return false;

@@ -13,6 +13,7 @@ namespace Item
         [SerializeField] private List<Ingredient> ingredients;
         [SerializeField] private TriggerProvider triggerProvider;
         [SerializeField] private ExpirationPopUp ui;
+        [SerializeField] private float bonusPercentage = 0.1f;
         private float offset;
         private Receipt receipt;
         private Rigidbody rigidbody;
@@ -134,9 +135,14 @@ namespace Item
                 total += 1;
                 if (i > ingredients.Count - 1) continue;
                 
-                if (ingredients[i].Type == receipt.Ingredients[i] && ingredients[i].IsCooked)
+                if (ingredients[i].Type == receipt.Ingredients[i].Type)
                 {
-                    similarity += ingredients[i].SimilarityPercentage;
+                    float bonus = ingredients[i].SimilarityPercentage;
+                    similarity += bonus;
+                    if (ingredients[i].CookedTool == receipt.Ingredients[i].Tool)
+                    {
+                        similarity += bonus * bonusPercentage;
+                    }
                 }
             }
             return similarity / total;

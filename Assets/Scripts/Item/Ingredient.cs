@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Scripts.Interactions;
 using DefaultNamespace;
 using DefaultNamespace.PopUp;
+using KitchenTools;
 using UnityEngine;
 
 namespace Item
@@ -15,8 +16,9 @@ namespace Item
         
         [SerializeField] private IngredientType addedFlavour = IngredientType.Null;
         [SerializeField] private ExpirationPopUp ui;
-        
+        [SerializeField] private bool isFlavour;
         [SerializeField] private bool isCooked;
+        private ToolType cookedTool = ToolType.Null;
         
         private float secondsToDecreaseSimilarity = 10f;
         private float decreaseValue = 0.03f;
@@ -32,6 +34,7 @@ namespace Item
         public IngredientType Type => type;
         public float SimilarityPercentage => similarityPercentage;
         public bool IsCooked => isCooked;
+        public ToolType CookedTool => cookedTool;
 
         protected override void Awake()
         {
@@ -42,8 +45,14 @@ namespace Item
         }
 
         private void Start()
-        {
+        {            
             ui.SetupExpirationPopUp(CookProvider.Instance.IngredientsData.GetItemByType(type).Value.Icon, similarityPercentage);
+            if (isFlavour)
+            {
+                similarityPercentage = 1;
+                ui.UpdateFillAmount(similarityPercentage);
+                return;
+            }
             decreaseSimilarityRoutine = StartCoroutine(Co_DecreaseSimilarity());
         }
 
@@ -62,11 +71,12 @@ namespace Item
             ui.UpdateFillAmount(similarityPercentage);
         }
         
-        public void Cook()
+        public void Cook(ToolType toolType)
         {
             isCooked = true;
+            cookedTool = toolType;
             IngredientData? itemData = CookProvider.Instance.IngredientsData.GetItemByType(type);
-            if (itemData != null)
+            if (itemData != null && itemData.Value.CookedMesh && itemData.Value.CookedMaterials != null)
             {
                 filter.mesh = itemData.Value.CookedMesh;
                 _renderer.materials = itemData.Value.CookedMaterials;

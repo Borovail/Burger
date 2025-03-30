@@ -82,12 +82,16 @@ public class PlayerInteractor : MonoBehaviour
         {
             return true;
         }
-
+        if (_currentHighlightable.GetGameObject().TryGetComponent(out IHighlightable highlightable))
+        {
+            return true;
+        }
         if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IPickable pickable))
             return pickable.CanPickUp();
 
         if (_heldObject != null && _heldObject.TryGetComponent(out Ingredient ingridient)
-            && _currentHighlightable.GetGameObject().TryGetComponent(out IKitchenTool kitchenTool) && kitchenTool.CanCookIngredient(ingridient))
+            && _currentHighlightable.GetGameObject().TryGetComponent(out IKitchenTool kitchenTool) && kitchenTool.
+                CanCookIngredient(ingridient))
             return true;
 
         // if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IKitchenTool otherKitchenTool) && otherKitchenTool.HasCookedIngridient)
