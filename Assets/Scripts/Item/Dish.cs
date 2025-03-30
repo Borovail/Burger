@@ -141,5 +141,13 @@ namespace Item
             }
             return similarity / total;
         }
+
+        private void OnDestroy()
+        {
+            foreach (Ingredient ingredient in ingredients)
+            {
+                Destroy(ingredient.GetGameObject());
+            }
+        }
     }
 }
