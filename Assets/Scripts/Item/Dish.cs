@@ -4,6 +4,7 @@ using Assets.Scripts.Interactions;
 using DefaultNamespace;
 using DefaultNamespace.PopUp;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Item
@@ -13,11 +14,12 @@ namespace Item
         [SerializeField] private List<Ingredient> ingredients;
         [SerializeField] private TriggerProvider triggerProvider;
         [SerializeField] private ExpirationPopUp ui;
-        [SerializeField] private float bonusPercentage = 0.1f;
+        [SerializeField] private float bonusCookPercentage = 0.1f;
+        [SerializeField] private float bonusFlavourPercentage = 0.1f;
         private float offset;
         private Receipt receipt;
         private Rigidbody rigidbody;
-
+        private float highestAchievedSimilarity = -1;
         public bool IsFull => receipt.Ingredients.Count <= ingredients.Count;
 
         //TODO: add similarity view, calculations
@@ -90,7 +92,6 @@ namespace Item
 
         public void PickUp()
         {
-            ui.Hide();
             foreach (Ingredient ingredient in ingredients)
             {
                 ingredient.transform.SetParent(transform);
@@ -125,11 +126,11 @@ namespace Item
             ui.Hide();
         }
 
-        private float CalculateSimilarity()
+        public float CalculateSimilarity()
         {
             float total = 0;
             float similarity = 0;
-            if(receipt == null) return 0.95f;
+            if(receipt.Equals(default)) return 0.95f;
             for (int i = 0; i < receipt.Ingredients.Count; i++)
             {
                 total += 1;
@@ -141,11 +142,23 @@ namespace Item
                     similarity += bonus;
                     if (ingredients[i].CookedTool == receipt.Ingredients[i].Tool)
                     {
-                        similarity += bonus * bonusPercentage;
+                        similarity += bonus * bonusCookPercentage;
                     }
+                    
+                    if (ingredients[i].AddedFlavour == receipt.Ingredients[i].FlavourType)
+                    {
+                        similarity += bonus * bonusFlavourPercentage;
+                    }
+
                 }
             }
-            return similarity / total;
+
+            float currentSimilarity = similarity / total;
+            if (currentSimilarity > highestAchievedSimilarity)
+            {
+                highestAchievedSimilarity = currentSimilarity;
+            }
+            return highestAchievedSimilarity;
         }
 
         private void OnDestroy()

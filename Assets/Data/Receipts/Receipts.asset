@@ -1,0 +1,226 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd91a1a350d312a4ea0a9886e84212a6, type: 3}
+  m_Name: Receipts
+  m_EditorClassIdentifier: 
+  receipts:
+  - title: Mini Burger
+    description: Bread|Cheese|Meat (+ Ketchup, -> Oven)|Bread
+    ingredients:
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 1
+      Tool: 0
+      FlavourType: 5
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    baseCost: 42
+  - title: Cheeseburger
+    description: Bread|Cheese|Meat(+Ketchup, -> Pan)|Bread
+    ingredients:
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 11
+      Tool: 3
+      FlavourType: 0
+    - Type: 1
+      Tool: 1
+      FlavourType: 5
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    baseCost: 45
+  - title: Fresh Burger
+    description: Bread(->Oven)|Salad(+Mustard,->Mixer)|Tomato|Meat(+Ketchup,->Pan)|Bread(->Oven)
+    ingredients:
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 1
+      Tool: 0
+      FlavourType: 6
+    - Type: 1
+      Tool: 0
+      FlavourType: 5
+    - Type: 1
+      Tool: 1
+      FlavourType: 6
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    baseCost: 60
+  - title: Double Cheeseburger
+    description: Bread(->Oven)|Salad|Tomato(->Pan)|Cheese|Meat(+Mustard, -> Pan)Cheese|Meat(+Ketchup,
+      -> Pan)|Bread(->Oven)
+    ingredients:
+    - Type: 4
+      Tool: 0
+      FlavourType: 0
+    - Type: 3
+      Tool: 3
+      FlavourType: 0
+    - Type: 9
+      Tool: 1
+      FlavourType: 0
+    - Type: 11
+      Tool: 3
+      FlavourType: 0
+    - Type: 1
+      Tool: 1
+      FlavourType: 6
+    - Type: 11
+      Tool: 3
+      FlavourType: 0
+    - Type: 1
+      Tool: 1
+      FlavourType: 5
+    - Type: 4
+      Tool: 0
+      FlavourType: 0
+    baseCost: 85
+  - title: Big Burger
+    description: Bread|Salad(+Mustard,->Mixer)|Tomato(->Pan)|Meat|Bread|Salad(+Mustard,->Mixer)|Tomato(->Pan)|Meat|Bread
+    ingredients:
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 3
+      Tool: 3
+      FlavourType: 0
+    - Type: 3
+      Tool: 3
+      FlavourType: 0
+    - Type: 3
+      Tool: 3
+      FlavourType: 0
+    - Type: 3
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 9
+      Tool: 1
+      FlavourType: 0
+    - Type: 1
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 0
+      FlavourType: 0
+    baseCost: 109
+  - title: BIG Tomato
+    description: Bread|Salad|Tomato|Bread
+    ingredients:
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 3
+      Tool: 3
+      FlavourType: 0
+    - Type: 9
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    baseCost: 45
+  - title: Veggie burger
+    description: Bread|Salad|Salad|Salad|Salad|Bread
+    ingredients:
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 3
+      Tool: 3
+      FlavourType: 0
+    - Type: 9
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    baseCost: 25
+  - title: Double Bread
+    description: Bread|Bread
+    ingredients:
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    baseCost: 9
+  - title: For the hungry
+    description: Bread|Meat(+Mustard, -> Oven)|Meat(+Ketchup, -> Oven)|Meat(+Mustard,
+      -> Pan)|Bread
+    ingredients:
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    baseCost: 145
+  - title: Cheese
+    description: Cheese|Cheese|Cheese|Cheese
+    ingredients:
+    - Type: 11
+      Tool: 3
+      FlavourType: 0
+    - Type: 11
+      Tool: 3
+      FlavourType: 0
+    - Type: 11
+      Tool: 3
+      FlavourType: 0
+    - Type: 11
+      Tool: 3
+      FlavourType: 0
+    baseCost: 42
+  - title: Classic Burger
+    description: Cheese|Cheese|Cheese|Cheese
+    ingredients:
+    - Type: 4
+      Tool: 0
+      FlavourType: 0
+    - Type: 3
+      Tool: 2
+      FlavourType: 6
+    - Type: 9
+      Tool: 1
+      FlavourType: 0
+    - Type: 1
+      Tool: 1
+      FlavourType: 5
+    - Type: 4
+      Tool: 3
+      FlavourType: 0
+    baseCost: 65

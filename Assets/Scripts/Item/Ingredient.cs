@@ -18,6 +18,7 @@ namespace Item
         [SerializeField] private ExpirationPopUp ui;
         [SerializeField] private bool isFlavour;
         [SerializeField] private bool isCooked;
+        [SerializeField] private bool spoil;
         private ToolType cookedTool = ToolType.Null;
         
         private float secondsToDecreaseSimilarity = 10f;
@@ -53,7 +54,11 @@ namespace Item
                 ui.UpdateFillAmount(similarityPercentage);
                 return;
             }
-            decreaseSimilarityRoutine = StartCoroutine(Co_DecreaseSimilarity());
+
+            if (spoil)
+            {
+                decreaseSimilarityRoutine = StartCoroutine(Co_DecreaseSimilarity());
+            }
         }
 
         private void OnDestroy()
@@ -75,6 +80,7 @@ namespace Item
         {
             isCooked = true;
             cookedTool = toolType;
+            ui.SetCookToolIcon(toolType);
             IngredientData? itemData = CookProvider.Instance.IngredientsData.GetItemByType(type);
             if (itemData != null && itemData.Value.CookedMesh && itemData.Value.CookedMaterials != null)
             {
@@ -102,7 +108,6 @@ namespace Item
 
         public void PickUp()
         {
-            ui.Hide();
             OnPickedUp?.Invoke();
         }
 

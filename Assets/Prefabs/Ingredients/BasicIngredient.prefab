@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83182507e47c459e97716d1391ac8c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderer: {fileID: 0}
   _highlightMaterial: {fileID: 2100000, guid: 09171fd07d0bf744ebbea66cfd54607b, type: 2}
   type: 0
   similarityPercentage: 1
@@ -186,6 +187,7 @@ MonoBehaviour:
   ui: {fileID: 8379165269084992986}
   isFlavour: 0
   isCooked: 0
+  spoil: 1
 --- !u!54 &5682352036969419798
 Rigidbody:
   m_ObjectHideFlags: 0

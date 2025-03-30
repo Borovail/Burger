@@ -7,6 +7,7 @@ namespace DefaultNamespace
     public struct IngredientRecipeType
     {
         public IngredientType Type;
-		public ToolType Tool;
+        public ToolType Tool;
+        public IngredientType FlavourType;
     }
 }

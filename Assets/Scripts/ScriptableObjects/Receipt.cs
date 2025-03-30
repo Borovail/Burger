@@ -1,18 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
-    [CreateAssetMenu(fileName = "Receipt", menuName = "Scriptable Objects/Receipt")]
-    public class Receipt : ScriptableObject
+    [Serializable]
+    public struct Receipt
     {
         [SerializeField] private string title;
         [SerializeField] private string description;
         [SerializeField] private List<IngredientRecipeType> ingredients;
+        [SerializeField] private int baseCost;
         
         public List<IngredientRecipeType> Ingredients => ingredients;
         public string Title => title;
         public string Description => description;
+        public int BaseCost => baseCost;
     }
 }
