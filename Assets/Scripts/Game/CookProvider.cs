@@ -36,5 +36,22 @@ namespace DefaultNamespace
                 }
             }
         }
+
+        public bool IsMainIngredient(IngredientType ingredientType)
+        {
+            switch (ingredientType)
+            {
+                case IngredientType.Meat:
+                case IngredientType.Bread:
+                case IngredientType.Salad:
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsFlavour(IngredientType ingredientType)
+        {
+            return ingredientType != IngredientType.Null && !IsMainIngredient(ingredientType);
+        }
     }
 }

@@ -23,3 +23,8 @@ MonoBehaviour:
     cookedMaterials:
     - {fileID: 2100000, guid: b3737475b3717db4cabb07581e28a3bf, type: 2}
     icon: {fileID: 21300000, guid: 0f5f3b97db7d31f4089e7959de1ef116, type: 3}
+  - ingredientType: 6
+    cookedMesh: {fileID: -7604053649368196830, guid: 3f85a287d1d712348aad8d756c7c3bfe, type: 3}
+    cookedMaterials:
+    - {fileID: 2100000, guid: b3737475b3717db4cabb07581e28a3bf, type: 2}
+    icon: {fileID: 21300000, guid: 1b14ec843c217a44884c9bbc1ca7dc53, type: 3}

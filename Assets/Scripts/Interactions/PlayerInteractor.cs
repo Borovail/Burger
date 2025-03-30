@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Interactions;
 using Interfaces;
 using Item;

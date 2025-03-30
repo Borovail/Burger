@@ -6,5 +6,6 @@ public enum IngredientType
     Bread = 4,
     Salt = 5,
     Pepper = 6,
-    Coriander = 7
+    Coriander = 7,
+    Any = 8
 }

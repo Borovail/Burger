@@ -131,5 +131,11 @@ namespace Item
                 ui.UpdateFillAmount(similarityPercentage);
             }
         }
+
+        public void AddFlavour(IngredientType flavour)
+        {
+            addedFlavour = flavour;
+            ui.SetFlavourIcon(CookProvider.Instance.IngredientsData.GetItemByType(flavour).Value.Icon);
+        }
     }
 }
