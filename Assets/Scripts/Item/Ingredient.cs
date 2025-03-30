@@ -75,6 +75,7 @@ namespace Item
         {
             isCooked = true;
             cookedTool = toolType;
+            ui.SetCookToolIcon(toolType);
             IngredientData? itemData = CookProvider.Instance.IngredientsData.GetItemByType(type);
             if (itemData != null && itemData.Value.CookedMesh && itemData.Value.CookedMaterials != null)
             {
@@ -102,7 +103,6 @@ namespace Item
 
         public void PickUp()
         {
-            ui.Hide();
             OnPickedUp?.Invoke();
         }
 

@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using DefaultNamespace;
 using Interfaces;
 using Item;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
-using Random = UnityEngine.Random;
 
 namespace Interactibles
 {
     public class ProcessOrder : MonoBehaviour, IInteractable
     {
-        [SerializeField] private List<Receipt> receipts;
         [SerializeField] private Text _orderText;
         [SerializeField] private Text _descriptionText;
         [SerializeField] private Transform trayPrefab;
@@ -44,6 +41,10 @@ namespace Interactibles
             if (other.CompareTag(Tags.Dish))
             {
                 _dish = other.GetComponent<Dish>();
+                _orderText.text = _receipt.Title;
+                _orderText.text += "\n Base cost: " + _receipt.BaseCost;
+                _orderText.text += "\n Evaluated cost: " + (int)_dish.CalculateSimilarity() * _receipt.BaseCost;
+                
             }
         }
         
@@ -54,20 +55,16 @@ namespace Interactibles
                 Dish dish = other.GetComponent<Dish>();
                 if (_dish == dish)
                 {
+                    _orderText.text = _receipt.Title;
+                    _orderText.text += "\n Base cost: " + _receipt.BaseCost;
                     _dish = null;
                 }
             }
         }
-
-        private Receipt GetRandomReceipt()
-        {
-            int randomIndex = Random.Range(0, receipts.Count);
-            return receipts[randomIndex];
-        }
         
         public void Interact()
         {
-            if (!_receipt)
+            if (_receipt.Equals(default(Receipt)))
             {
                 GetOrder();
             }
@@ -83,8 +80,9 @@ namespace Interactibles
             {
                 _tray = Instantiate(trayPrefab, trayParent);
             }
-            _receipt = GetRandomReceipt();
+            _receipt = CookProvider.Instance.GetNextReceipt();
             _orderText.text = _receipt.Title;
+            _orderText.text += "\n Base cost: " + _receipt.BaseCost;
             _descriptionText.text = _receipt.Description;
             _audioSource.PlayOneShot(_takeOrderSound);
             
@@ -96,11 +94,12 @@ namespace Interactibles
             _orderText.text = "";
             _descriptionText.text = "";
             _sellOrderParticles.Play();
+            Player.Instance.AddMoney((int)_dish.CalculateSimilarity() * _receipt.BaseCost);
             Destroy(_tray.gameObject);
             Destroy(_dish.gameObject);
             _tray = null;
             _dish = null;
-            _receipt = null;
+            _receipt = default;
             _audioSource.PlayOneShot(_sellOrderSound);
         }
     }
