@@ -12,7 +12,6 @@ namespace Interactibles
 {
     public class ProcessOrder : MonoBehaviour, IInteractable
     {
-        [SerializeField] private List<Receipt> receipts;
         [SerializeField] private Text _orderText;
         [SerializeField] private Text _descriptionText;
         [SerializeField] private Transform trayPrefab;
@@ -58,16 +57,10 @@ namespace Interactibles
                 }
             }
         }
-
-        private Receipt GetRandomReceipt()
-        {
-            int randomIndex = Random.Range(0, receipts.Count);
-            return receipts[randomIndex];
-        }
         
         public void Interact()
         {
-            if (!_receipt)
+            if (_receipt.Equals(default(Receipt)))
             {
                 GetOrder();
             }
@@ -83,7 +76,7 @@ namespace Interactibles
             {
                 _tray = Instantiate(trayPrefab, trayParent);
             }
-            _receipt = GetRandomReceipt();
+            _receipt = CookProvider.Instance.GetNextReceipt();
             _orderText.text = _receipt.Title;
             _descriptionText.text = _receipt.Description;
             _audioSource.PlayOneShot(_takeOrderSound);
@@ -100,7 +93,7 @@ namespace Interactibles
             Destroy(_dish.gameObject);
             _tray = null;
             _dish = null;
-            _receipt = null;
+            _receipt = default;
             _audioSource.PlayOneShot(_sellOrderSound);
         }
     }

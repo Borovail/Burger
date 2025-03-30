@@ -9,7 +9,7 @@ namespace Item
         [SerializeField] private Transform spawnPoint;
         public void Interact()
         {
-            Instantiate(ingredientToSpawn, spawnPoint.position, Quaternion.identity);
+            Instantiate(ingredientToSpawn, spawnPoint.position, spawnPoint.rotation);
         }
     }
 }

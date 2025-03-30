@@ -9,6 +9,24 @@ namespace DefaultNamespace
     {
         [SerializeField] private List<CookingRule> rules;
         [SerializeField] private IngredientsData ingredientsData;
+        [SerializeField] private Receipts receipts;
+        private int id = 0;
+        public Receipt GetNextReceipt()
+        {
+            int index = id;
+            Receipt receipt;
+            if (id >= receipts.ReceiptsData.Count)
+            {
+                index = Random.Range(0, receipts.ReceiptsData.Count - 1);
+                receipt = receipts.ReceiptsData[index];
+            }
+            else
+            {
+                receipt = receipts.ReceiptsData[index];
+                id++;
+            }
+            return receipt;
+        }
         public IngredientsData IngredientsData => ingredientsData;
 
         public static CookProvider Instance { get; private set; }
