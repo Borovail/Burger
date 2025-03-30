@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Interactions;
 using Interfaces;
 using Item;
@@ -56,10 +55,18 @@ public class PlayerInteractor : MonoBehaviour
         }
 
         float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
-        if (_heldObject != null && Mathf.Abs(scrollDelta) > 0f)
+        if (_heldObject && Mathf.Abs(scrollDelta) > 0)
         {
-            float moveSpeed = 1f;
-            _heldObject.transform.localPosition += Vector3.forward * scrollDelta * moveSpeed;
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                float rotationSpeed = 40f;
+                _heldObject.transform.Rotate(Vector3.right, scrollDelta * rotationSpeed);
+            }
+            else
+            {
+                float moveSpeed = 1f;
+                _heldObject.transform.localPosition += Vector3.forward * (scrollDelta * moveSpeed);
+            }
         }
     }
 

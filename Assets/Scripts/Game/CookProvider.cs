@@ -8,8 +8,8 @@ namespace DefaultNamespace
     public class CookProvider : MonoBehaviour
     {
         [SerializeField] private List<CookingRule> rules;
-        [SerializeField] private CookedData cookedData;
-        public CookedData CookedData => cookedData;
+        [SerializeField] private IngredientsData ingredientsData;
+        public IngredientsData IngredientsData => ingredientsData;
 
         public static CookProvider Instance { get; private set; }
 
@@ -30,11 +30,28 @@ namespace DefaultNamespace
         {
             foreach (CookingRule rule in rules)
             {
-                if (rule.ToolType == toolType && item.ItemSO.itemType == rule.StartIngridient && item.AddedFlavour == rule.StartFlavorIngridient)
+                if (rule.ToolType == toolType && item.Type == rule.StartIngredient && item.AddedFlavour == rule.StartFlavorIngredient)
                 {
-                    item.ChangeIngredient(rule.TargetIngridient, rule.SimilarityPercentage);   
+                    item.ChangeIngredient(rule.SimilarityBonus);   
                 }
             }
+        }
+
+        public bool IsMainIngredient(IngredientType ingredientType)
+        {
+            switch (ingredientType)
+            {
+                case IngredientType.Meat:
+                case IngredientType.Bread:
+                case IngredientType.Salad:
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsFlavour(IngredientType ingredientType)
+        {
+            return ingredientType != IngredientType.Null && !IsMainIngredient(ingredientType);
         }
     }
 }

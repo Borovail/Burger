@@ -31,7 +31,7 @@ RectTransform:
   m_GameObject: {fileID: 1204632963408242129}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.58, y: 0.58, z: 0.58}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7875819453784000047}
@@ -136,8 +136,8 @@ MonoBehaviour:
   fillImage: {fileID: 1469242942245005686}
   iconImage: {fileID: 1686112764355949681}
   canvasGroup: {fileID: 8504423999088308300}
-  startIcon: {fileID: -744246317, guid: ec1c71f100bf86946a490d54c23fe938, type: 3}
-  finishIcon: {fileID: 444294930, guid: 6aa810068037e0a49afddbee336a804a, type: 3}
+  startIcon: {fileID: 21300000, guid: ec1c71f100bf86946a490d54c23fe938, type: 3}
+  finishIcon: {fileID: 21300000, guid: 6aa810068037e0a49afddbee336a804a, type: 3}
 --- !u!114 &6497487880892122111
 MonoBehaviour:
   m_ObjectHideFlags: 0

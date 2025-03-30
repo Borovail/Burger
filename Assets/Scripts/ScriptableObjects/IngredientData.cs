@@ -4,14 +4,16 @@ using UnityEngine;
 namespace DefaultNamespace
 {
     [Serializable]
-    public struct CookedItemData
+    public struct IngredientData
     {
-        [SerializeField] private ItemType itemType;
+        [SerializeField] private IngredientType ingredientType;
         [SerializeField] private Mesh cookedMesh;
         [SerializeField] private Material[] cookedMaterials;
-        
-        public ItemType ItemType => itemType;
+        [SerializeField] private Sprite icon;
+
+        public IngredientType IngredientType => ingredientType;
         public Mesh CookedMesh => cookedMesh;
         public Material[] CookedMaterials => cookedMaterials;
+        public Sprite Icon => icon;
     }
 }

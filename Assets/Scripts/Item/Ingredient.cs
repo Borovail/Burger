@@ -1,58 +1,75 @@
 using System;
+using System.Collections;
 using Assets.Scripts.Interactions;
 using DefaultNamespace;
+using DefaultNamespace.PopUp;
 using UnityEngine;
 
 namespace Item
 {
-    [RequireComponent(typeof(Rigidbody),typeof(Highlightable))]
+    [RequireComponent(typeof(Rigidbody))]
     public class Ingredient : Highlightable, IPickable
     {
-        [SerializeField] private ItemSO itemSO;
-        private Rigidbody _rigidbody;
-
+        [SerializeField] private IngredientType type;
+        [SerializeField]  private float similarityPercentage = 1f;
+        
+        [SerializeField] private IngredientType addedFlavour = IngredientType.Null;
+        [SerializeField] private ExpirationPopUp ui;
+        
         [SerializeField] private bool isCooked;
-        [SerializeField] private ItemType addedFlavour = ItemType.Null;
-        [SerializeField] private float similarityPercentage = 1f;
+        
+        private float secondsToDecreaseSimilarity = 10f;
+        private float decreaseValue = 0.03f;
+        
         private float height;
         private bool canBePickedUp = true;
         private MeshFilter filter;
-        private MeshRenderer renderer;
+        private Rigidbody _rigidbody;
+        private Coroutine decreaseSimilarityRoutine;
         
-        public bool IsCooked => isCooked;
-        public ItemType AddedFlavour => addedFlavour;
-
-        public ItemSO ItemSO => itemSO;
+        public IngredientType AddedFlavour => addedFlavour;
         public float Height => height;
+        public IngredientType Type => type;
+        public float SimilarityPercentage => similarityPercentage;
+        public bool IsCooked => isCooked;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             height = GetComponent<Collider>().bounds.size.y;
             filter = GetComponent<MeshFilter>();
-            renderer = GetComponent<MeshRenderer>();
             _rigidbody = GetComponent<Rigidbody>();
         }
 
-        public void AddFlavour(ItemSO addedFlavour)
+        private void Start()
         {
-            this.addedFlavour = addedFlavour.itemType;
+            ui.SetupExpirationPopUp(CookProvider.Instance.IngredientsData.GetItemByType(type).Value.Icon, similarityPercentage);
+            decreaseSimilarityRoutine = StartCoroutine(Co_DecreaseSimilarity());
         }
 
-        public void ChangeIngredient(ItemSO itemSo, float similarityPercent)
+        private void OnDestroy()
         {
-            addedFlavour = ItemType.Null;
-            itemSO = itemSo;
-            similarityPercentage = similarityPercent;
+            if (decreaseSimilarityRoutine != null)
+            {
+                StopCoroutine(decreaseSimilarityRoutine);
+            }
+        }
+        
+        public void ChangeIngredient(float similarityPercent)
+        {
+            addedFlavour = IngredientType.Null;
+            similarityPercentage = Mathf.Clamp01(similarityPercentage + similarityPercent);
+            ui.UpdateFillAmount(similarityPercentage);
         }
         
         public void Cook()
         {
             isCooked = true;
-            CookedItemData? cookedItemData = CookProvider.Instance.CookedData.GetItemByType(itemSO.itemType);
-            if (cookedItemData != null)
+            IngredientData? itemData = CookProvider.Instance.IngredientsData.GetItemByType(type);
+            if (itemData != null)
             {
-                filter.mesh = cookedItemData.Value.CookedMesh;
-                renderer.materials = cookedItemData.Value.CookedMaterials;
+                filter.mesh = itemData.Value.CookedMesh;
+                _renderer.materials = itemData.Value.CookedMaterials;
             }
         }
 
@@ -75,6 +92,7 @@ namespace Item
 
         public void PickUp()
         {
+            ui.Hide();
             OnPickedUp?.Invoke();
         }
 
@@ -90,6 +108,34 @@ namespace Item
         public void DisablePickUp()
         {
             canBePickedUp = false;
+        }
+
+        public override void Highlight()
+        {
+            base.Highlight();
+            ui.Show();
+        }
+
+        public override void Unhighlight()
+        {
+            base.Unhighlight();
+            ui.Hide();
+        }
+
+        private IEnumerator Co_DecreaseSimilarity()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(secondsToDecreaseSimilarity);
+                similarityPercentage -= decreaseValue;
+                ui.UpdateFillAmount(similarityPercentage);
+            }
+        }
+
+        public void AddFlavour(IngredientType flavour)
+        {
+            addedFlavour = flavour;
+            ui.SetFlavourIcon(CookProvider.Instance.IngredientsData.GetItemByType(flavour).Value.Icon);
         }
     }
 }

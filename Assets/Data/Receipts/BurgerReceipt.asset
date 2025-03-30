@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e1c09299ca4d13ac431af5ace54978, type: 3}
   m_Name: BurgerReceipt
   m_EditorClassIdentifier: 
-  ingridients: 04000000010000000300000004000000
+  title: Mc Cheeese
+  description: Bread, Meat, Bread
+  ingredients: 040000000100000004000000

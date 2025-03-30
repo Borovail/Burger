@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: RatMeat_Null_CowMeat_0.3
   m_EditorClassIdentifier: 
   toolType: 0
-  startIngridient: 2
-  startFlavourIngridient: 0
-  targetIngridient: {fileID: 11400000, guid: a86ff3d199751f34a9875a737ac91217, type: 2}
-  similarityPercentage: 0.3
+  startIngredient: 1
+  startFlavourIngredient: 5
+  similarityBonus: 0.2

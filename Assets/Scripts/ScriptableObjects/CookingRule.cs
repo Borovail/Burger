@@ -1,19 +1,18 @@
 using Item;
 using KitchenTools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "CookingRule", menuName = "Scriptable Objects/CookingRule")]
 public class CookingRule : ScriptableObject
 {
     [SerializeField] private ToolType toolType;
-    [SerializeField] private ItemType startIngridient;
-    [SerializeField] private ItemType startFlavourIngridient;
-    [SerializeField] private ItemSO targetIngridient;
-    [SerializeField, Range(0, 1f)] private float similarityPercentage;
+    [SerializeField] private IngredientType startIngredient;
+    [SerializeField] private IngredientType startFlavourIngredient;
+    [SerializeField, Range(0, 1f)] private float similarityBonus;
     
     public ToolType ToolType => toolType;
-    public ItemType StartIngridient => startIngridient;
-    public ItemType StartFlavorIngridient => startFlavourIngridient;
-    public ItemSO TargetIngridient => targetIngridient;
-    public float SimilarityPercentage => similarityPercentage;
+    public IngredientType StartIngredient => startIngredient;
+    public IngredientType StartFlavorIngredient => startFlavourIngredient;
+    public float SimilarityBonus => similarityBonus;
 }

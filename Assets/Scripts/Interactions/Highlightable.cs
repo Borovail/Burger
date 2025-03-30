@@ -30,7 +30,7 @@ namespace Assets.Scripts.Interactions
             return gameObject;
         }
 
-        public void Highlight()
+        public virtual void Highlight()
         {
             // Создаем новый массив материалов, который включает подсветку
             Material[] materials = new Material[_renderer.materials.Length + 1];
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Interactions
             _renderer.materials = materials; // Применяем новый массив материалов
         }
 
-        public void Unhighlight()
+        public virtual void Unhighlight()
         {
             Material[] materials = _renderer.materials;
 
