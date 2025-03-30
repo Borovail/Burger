@@ -240,10 +240,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2392be43a6364bafbfb42ca56c18e5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _renderer: {fileID: 0}
   _highlightMaterial: {fileID: 2100000, guid: 09171fd07d0bf744ebbea66cfd54607b, type: 2}
   ingredients: []
   triggerProvider: {fileID: 4273040194402140378}
   ui: {fileID: 910768940401500997}
+  bonusCookPercentage: 0.1
+  bonusFlavourPercentage: 0.1
 --- !u!1 &5103767685516961731
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +382,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7506671, y: 1.4172, z: 1.6334648}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7875336394162479904}

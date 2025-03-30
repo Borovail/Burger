@@ -19,7 +19,7 @@ namespace Item
         private float offset;
         private Receipt receipt;
         private Rigidbody rigidbody;
-
+        private float highestAchievedSimilarity = -1;
         public bool IsFull => receipt.Ingredients.Count <= ingredients.Count;
 
         //TODO: add similarity view, calculations
@@ -152,7 +152,13 @@ namespace Item
 
                 }
             }
-            return similarity / total;
+
+            float currentSimilarity = similarity / total;
+            if (currentSimilarity > highestAchievedSimilarity)
+            {
+                highestAchievedSimilarity = currentSimilarity;
+            }
+            return highestAchievedSimilarity;
         }
 
         private void OnDestroy()

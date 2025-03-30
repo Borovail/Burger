@@ -43,8 +43,9 @@ namespace Interactibles
                 _dish = other.GetComponent<Dish>();
                 _orderText.text = _receipt.Title;
                 _orderText.text += "\n Base cost: " + _receipt.BaseCost;
-                _orderText.text += "\n Evaluated cost: " + (int)_dish.CalculateSimilarity() * _receipt.BaseCost;
-                
+                float expectedCost = (int)(_dish.CalculateSimilarity() * _receipt.BaseCost);
+                _orderText.text += "\n Evaluated cost: " + expectedCost;
+                Debug.Log(_receipt.BaseCost);
             }
         }
         
@@ -94,7 +95,7 @@ namespace Interactibles
             _orderText.text = "";
             _descriptionText.text = "";
             _sellOrderParticles.Play();
-            Player.Instance.AddMoney((int)_dish.CalculateSimilarity() * _receipt.BaseCost);
+            Player.Instance.AddMoney((int)(_dish.CalculateSimilarity() * _receipt.BaseCost));
             Destroy(_tray.gameObject);
             Destroy(_dish.gameObject);
             _tray = null;
