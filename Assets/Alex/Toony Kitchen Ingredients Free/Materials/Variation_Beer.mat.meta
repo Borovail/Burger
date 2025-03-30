@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: 27a4734fbfef65c4ea8189388755fb8e
+guid: bc7e29732cce6ab47931bd2a2024a337
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 2100000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 301805
-  packageName: Toony Kitchen & Ingredients Model FREE
-  packageVersion: 1.0
-  assetPath: Assets/Toony Kitchen Ingredients Free/Materials/Variation_Beer.mat
-  uploadId: 708770

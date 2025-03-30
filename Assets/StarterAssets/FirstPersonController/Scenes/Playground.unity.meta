@@ -1,15 +1,7 @@
 fileFormatVersion: 2
-guid: 707acc8dffb72b144bb1ffbe1c965f3d
+guid: 218acbbdc6a201542a634c683646ec2b
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 196525
-  packageName: Starter Assets - FirstPerson | Updates in new CharacterController
-    package
-  packageVersion: 1.3
-  assetPath: Assets/StarterAssets/FirstPersonController/Scenes/Playground.unity
-  uploadId: 691166

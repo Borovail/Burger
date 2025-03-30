@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: d888bb033f07479469e5b064d1385783
+guid: 6f9f7c2fe0cde1245a7fa3fff07f9382
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 2100000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 301805
-  packageName: Toony Kitchen & Ingredients Model FREE
-  packageVersion: 1.0
-  assetPath: Assets/Toony Kitchen Ingredients Free/Materials/Main_Transparent+1.mat
-  uploadId: 708770
