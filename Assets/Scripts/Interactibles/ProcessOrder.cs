@@ -14,15 +14,10 @@ namespace Interactibles
         [SerializeField] private Text _descriptionText;
         [SerializeField] private Transform trayPrefab;
         [SerializeField] private Transform trayParent;
-        [SerializeField] private ParticleSystem _sellOrderParticles;
         [SerializeField] private TriggerProvider trigger;
         
-        [SerializeField] private AudioClip _takeOrderSound;
-        [SerializeField] private AudioClip _sellOrderSound;
-
         private Dish _dish;
         private Transform _tray;
-        private AudioSource _audioSource;
 
         private bool HaveDish => _dish != null;
         private Receipt _receipt;
@@ -31,7 +26,6 @@ namespace Interactibles
         
         private void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
             trigger.OnEnter += TriggerOnOnEnter;
             trigger.OnExit += TriggerOnOnExit;
         }
@@ -85,7 +79,7 @@ namespace Interactibles
             _orderText.text = _receipt.Title;
             _orderText.text += "\n Base cost: " + _receipt.BaseCost;
             _descriptionText.text = _receipt.Description;
-            _audioSource.PlayOneShot(_takeOrderSound);
+            EffectManager.Instance.PlaySfx(EffectManager.Instance.TakeOrderAudio);
             
             OnOrderGet?.Invoke(_receipt);
         }
@@ -94,14 +88,14 @@ namespace Interactibles
         {
             _orderText.text = "";
             _descriptionText.text = "";
-            _sellOrderParticles.Play();
-            Player.Instance.AddMoney((int)(_dish.CalculateSimilarity() * _receipt.BaseCost));
+            Player.Instance.AddMoney((int)_dish.CalculateSimilarity() * _receipt.BaseCost);
             Destroy(_tray.gameObject);
             Destroy(_dish.gameObject);
             _tray = null;
             _dish = null;
             _receipt = default;
-            _audioSource.PlayOneShot(_sellOrderSound);
+            EffectManager.Instance.PlaySfx(EffectManager.Instance.SellOrderAudio)
+                .PlayParticles(EffectManager.Instance.SellOrderParticle, transform.position);
         }
     }
 }
