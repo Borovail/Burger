@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using DefaultNamespace;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,18 +9,9 @@ namespace Interactibles
     {
         [SerializeField] private Text _orderText;
         [SerializeField] private GameObject _plate;
-        [SerializeField] private ParticleSystem _sellOrderParticles;
 
-        [SerializeField] private AudioClip _takeOrderSound;
-        [SerializeField] private AudioClip _sellOrderSound;
-
-        private AudioSource _audioSource;
         private bool _plateSpawned;
 
-        private void Awake()
-        {
-            _audioSource = GetComponent<AudioSource>();
-        }
 
         public void Interact()
         {
@@ -28,14 +20,14 @@ namespace Interactibles
                 _orderText.text = "Cheese burger x1";
                 _plate.SetActive(true);
                 _plate.transform.localPosition = new Vector3(0, 1f, 0);
-                _audioSource.PlayOneShot(_takeOrderSound);
+                EffectManager.Instance.PlaySfx(EffectManager.Instance.TakeOrderAudio);
             }
             else
             {
                 _orderText.text = "";
-                _sellOrderParticles.Play();
                 _plate.SetActive(false);
-                _audioSource.PlayOneShot(_sellOrderSound);
+                EffectManager.Instance.PlaySfx(EffectManager.Instance.SellOrderAudio)
+                    .PlayParticles(EffectManager.Instance.SellOrderParticle,transform.position);
             }
 
             _plate.SetActive(!_plateSpawned);

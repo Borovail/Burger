@@ -45,10 +45,9 @@ public class PlayerInteractor : MonoBehaviour
         }
         //}
 
-        if (Input.GetMouseButtonUp(0) && _currentHighlightable != null)
+        if (Input.GetMouseButtonUp(0))
         {
-            if (CanInteract())
-                Interact();
+            Interact();
         }
 
         if (Input.GetMouseButtonUp(1) && _heldObject != null)
@@ -71,6 +70,12 @@ public class PlayerInteractor : MonoBehaviour
             return true;
         }
 
+        if (_heldObject != null && _heldObject.TryGetComponent(out Knife _) &&
+            _currentHighlightable.GetGameObject().TryGetComponent(out Rat _))
+        {
+            return true;
+        }
+
         if (_heldObject == null && _currentHighlightable.GetGameObject().TryGetComponent(out IPickable pickable))
             return pickable.CanPickUp();
 
@@ -87,26 +92,34 @@ public class PlayerInteractor : MonoBehaviour
 
     void Interact()
     {
-        if (_currentHighlightable.GetGameObject().TryGetComponent(out IInteractable interactable))
+        if (_heldObject!=null && _heldObject.TryGetComponent(out Knife knife))
         {
-            interactable.Interact();
+            knife.Stab();
         }
-        else if (_currentHighlightable.GetGameObject().TryGetComponent(out IPickable pickable) && _heldObject == null)
+        else if (_currentHighlightable != null)
         {
-            pickable.PickUp();
-            PickupObject(pickable);
-        }
-        else if (_heldObject != null)
-        {
-            pickable.Drop();
-            DropObject();
+            if (_currentHighlightable.GetGameObject().TryGetComponent(out IInteractable interactable))
+            {
+                interactable.Interact();
+            }
+            else if (_currentHighlightable.GetGameObject().TryGetComponent(out IPickable pickable) &&
+                     _heldObject == null)
+            {
+                pickable.PickUp();
+                PickupObject(pickable);
+            }
+            else if (_heldObject != null)
+            {
+                pickable.Drop();
+                DropObject();
+            }
         }
     }
 
     void PickupObject(IPickable objectToPick)
     {
         _heldObject = objectToPick.GetGameObject();
-
+        _heldObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         objectToPick.GetRigidbody().isKinematic = true;
         HandTransform.position = _heldObject.transform.position;
         _heldObject.transform.SetParent(HandTransform);
@@ -118,6 +131,8 @@ public class PlayerInteractor : MonoBehaviour
         {
             pickable.Drop();
         }
+        _heldObject.layer = LayerMask.NameToLayer("Default");
+
         _heldObject.transform.SetParent(null);
         _heldObject.GetComponent<Rigidbody>().isKinematic = false;
         _heldObject = null;

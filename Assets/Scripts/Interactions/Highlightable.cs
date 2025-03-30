@@ -10,15 +10,18 @@ namespace Assets.Scripts.Interactions
     }
 
 
-    [RequireComponent(typeof(MeshRenderer))]
     public class Highlightable : MonoBehaviour,IHighlightable
     {
-        private MeshRenderer _renderer;
+        [SerializeField] private Renderer _renderer;
         [SerializeField] private Material _highlightMaterial;
 
         private void Awake()
         {
-            _renderer = GetComponent<MeshRenderer>();
+            if (_renderer != null) return;
+            if (!TryGetComponent(out _renderer))
+            {
+                _renderer = GetComponentInChildren<Renderer>();
+            }
         }
 
 
