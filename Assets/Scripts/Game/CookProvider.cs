@@ -10,6 +10,9 @@ namespace DefaultNamespace
         [SerializeField] private List<CookingRule> rules;
         [SerializeField] private IngredientsData ingredientsData;
         [SerializeField] private Receipts receipts;
+        [SerializeField] private ShopMenu shopMenu;
+        
+        public ShopMenu ShopMenu => shopMenu;
         private int id = 0;
         public Receipt GetNextReceipt()
         {

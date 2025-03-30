@@ -37,6 +37,11 @@ namespace Item
         public bool IsCooked => isCooked;
         public ToolType CookedTool => cookedTool;
 
+        public void SetSimilarity(float similarityPercentage)
+        {
+            this.similarityPercentage = similarityPercentage;
+        }
+        
         protected override void Awake()
         {
             base.Awake();
