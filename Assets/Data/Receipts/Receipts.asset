@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   receipts:
   - title: McChicken
-    description: 
+    description: Bread, Meat (pan), Bread (ketchup)
     ingredients:
-    - Type: 0
-      Tool: 0
+    - Type: 4
+      Tool: 3
       FlavourType: 0
-  - title: McChicken
-    description: 
-    ingredients:
-    - Type: 0
-      Tool: 0
+    - Type: 1
+      Tool: 1
       FlavourType: 0
+    - Type: 4
+      Tool: 3
+      FlavourType: 5
+    baseCost: 100

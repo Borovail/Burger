@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using DefaultNamespace;
 using Interfaces;
 using Item;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
-using Random = UnityEngine.Random;
 
 namespace Interactibles
 {
@@ -43,6 +41,10 @@ namespace Interactibles
             if (other.CompareTag(Tags.Dish))
             {
                 _dish = other.GetComponent<Dish>();
+                _orderText.text = _receipt.Title;
+                _orderText.text += "\n Base cost: " + _receipt.BaseCost;
+                _orderText.text += "\n Evaluated cost: " + (int)_dish.CalculateSimilarity() * _receipt.BaseCost;
+                
             }
         }
         
@@ -53,6 +55,8 @@ namespace Interactibles
                 Dish dish = other.GetComponent<Dish>();
                 if (_dish == dish)
                 {
+                    _orderText.text = _receipt.Title;
+                    _orderText.text += "\n Base cost: " + _receipt.BaseCost;
                     _dish = null;
                 }
             }
@@ -78,6 +82,7 @@ namespace Interactibles
             }
             _receipt = CookProvider.Instance.GetNextReceipt();
             _orderText.text = _receipt.Title;
+            _orderText.text += "\n Base cost: " + _receipt.BaseCost;
             _descriptionText.text = _receipt.Description;
             _audioSource.PlayOneShot(_takeOrderSound);
             
@@ -89,6 +94,7 @@ namespace Interactibles
             _orderText.text = "";
             _descriptionText.text = "";
             _sellOrderParticles.Play();
+            Player.Instance.AddMoney((int)_dish.CalculateSimilarity() * _receipt.BaseCost);
             Destroy(_tray.gameObject);
             Destroy(_dish.gameObject);
             _tray = null;

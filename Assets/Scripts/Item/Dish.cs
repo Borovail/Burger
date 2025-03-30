@@ -126,7 +126,7 @@ namespace Item
             ui.Hide();
         }
 
-        private float CalculateSimilarity()
+        public float CalculateSimilarity()
         {
             float total = 0;
             float similarity = 0;
