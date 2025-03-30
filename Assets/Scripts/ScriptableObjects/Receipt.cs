@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -8,9 +9,9 @@ namespace DefaultNamespace
     {
         [SerializeField] private string title;
         [SerializeField] private string description;
-        [SerializeField] private List<ItemType> ingridients;
+        [SerializeField] private List<IngredientType> ingredients;
         
-        public List<ItemType> Ingredients => ingridients;
+        public List<IngredientType> Ingredients => ingredients;
         public string Title => title;
         public string Description => description;
     }

@@ -18,7 +18,7 @@ namespace KitchenTools
         [SerializeField] private float cookDuration = 5f;
         [SerializeField] private Transform ingredientPlace;
         [SerializeField] private UITimer timer;
-        [SerializeField] private List<ItemSO> acceptedItems;
+        [SerializeField] private List<IngredientType> acceptedItems;
         [SerializeField] private TriggerProvider trigger;
         [SerializeField] protected List<Ingredient> ingredientsToCook;
 
@@ -87,7 +87,7 @@ namespace KitchenTools
 
         public virtual bool CanCookIngredient(Ingredient ingredient)
         {
-            return ingredient && acceptedItems.Contains(ingredient.ItemSO);
+            return ingredient && acceptedItems.Contains(ingredient.Type);
         }
 
         protected virtual bool CanRunTool()

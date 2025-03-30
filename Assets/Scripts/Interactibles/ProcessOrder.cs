@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using Interfaces;
 using Item;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace Interactibles
 {
@@ -28,24 +29,25 @@ namespace Interactibles
 
         private bool HaveDish => _dish != null;
         private Receipt _receipt;
+
+        public event Action<Receipt> OnOrderGet;
         
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
             trigger.OnEnter += TriggerOnOnEnter;
             trigger.OnExit += TriggerOnOnExit;
-            GetOrder();
         }
 
-        private void TriggerOnOnExit(Collider other)
+        private void TriggerOnOnEnter(Collider other)
         {
             if (other.CompareTag(Tags.Dish))
             {
                 _dish = other.GetComponent<Dish>();
             }
         }
-
-        private void TriggerOnOnEnter(Collider other)
+        
+        private void TriggerOnOnExit(Collider other)
         {
             if (other.CompareTag(Tags.Dish))
             {
@@ -80,22 +82,25 @@ namespace Interactibles
             if (_tray == null)
             {
                 _tray = Instantiate(trayPrefab, trayParent);
-                _tray.localPosition = new Vector3(0, 1f, 0);
             }
             _receipt = GetRandomReceipt();
             _orderText.text = _receipt.Title;
             _descriptionText.text = _receipt.Description;
             _audioSource.PlayOneShot(_takeOrderSound);
+            
+            OnOrderGet?.Invoke(_receipt);
         }
 
         private void GiveDish()
         {
             _orderText.text = "";
+            _descriptionText.text = "";
             _sellOrderParticles.Play();
             Destroy(_tray.gameObject);
             Destroy(_dish.gameObject);
             _tray = null;
             _dish = null;
+            _receipt = null;
             _audioSource.PlayOneShot(_sellOrderSound);
         }
     }

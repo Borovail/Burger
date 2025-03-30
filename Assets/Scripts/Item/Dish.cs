@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Interactions;
 using DefaultNamespace;
+using DefaultNamespace.PopUp;
 using UnityEngine;
 using Utils;
 
 namespace Item
 {
-    public class Dish : MonoBehaviour, IPickable
+    public class Dish : Highlightable, IPickable
     {
         [SerializeField] private List<Ingredient> ingredients;
         [SerializeField] private TriggerProvider triggerProvider;
+        [SerializeField] private ExpirationPopUp ui;
         private float offset;
         private Receipt receipt;
         private Rigidbody rigidbody;
@@ -18,8 +21,9 @@ namespace Item
 
         //TODO: add similarity view, calculations
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             rigidbody = GetComponent<Rigidbody>();
             triggerProvider.OnEnter += TriggerProviderOnOnEnter;
             triggerProvider.OnExit += TriggerProviderOnOnExit;
@@ -45,7 +49,6 @@ namespace Item
                 }
             }
         }
-
         
         public void Setup(Transform parent, Receipt receipt)
         {
@@ -86,6 +89,7 @@ namespace Item
 
         public void PickUp()
         {
+            ui.Hide();
             foreach (Ingredient ingredient in ingredients)
             {
                 ingredient.transform.SetParent(transform);
@@ -99,10 +103,43 @@ namespace Item
             GetRigidbody().isKinematic = false;
             foreach (Ingredient ingredient in ingredients)
             {
-                //ingredient.transform.SetParent(null);
                 ingredient.GetRigidbody().constraints = RigidbodyConstraints.None;
                 ingredient.GetRigidbody().isKinematic = false;
             }
+        }
+
+        public override void Highlight()
+        {
+            base.Highlight();
+            
+            //TODO: should do this every ui show, gotta be careful
+            float similarity = CalculateSimilarity();
+            ui.UpdateFillAmount(similarity);
+            ui.Show();
+        }
+
+        public override void Unhighlight()
+        {
+            base.Unhighlight();
+            ui.Hide();
+        }
+
+        private float CalculateSimilarity()
+        {
+            float total = 0;
+            float similarity = 0;
+            if(receipt == null) return 0.95f;
+            for (int i = 0; i < receipt.Ingredients.Count; i++)
+            {
+                total += 1;
+                if (i > ingredients.Count - 1) continue;
+                
+                if (ingredients[i].Type == receipt.Ingredients[i] && ingredients[i].IsCooked)
+                {
+                    similarity += ingredients[i].SimilarityPercentage;
+                }
+            }
+            return similarity / total;
         }
     }
 }
